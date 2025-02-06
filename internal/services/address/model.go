@@ -4,7 +4,7 @@ package address
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/stainless-sdks/terminal-terraform/internal/apijson"
+	"github.com/terminaldotshop/terraform-provider-terminal/internal/apijson"
 )
 
 type AddressModel struct {

@@ -8,8 +8,8 @@ import (
 	rs "github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 
-	"github.com/stainless-sdks/terminal-terraform/internal/customfield"
-	"github.com/stainless-sdks/terminal-terraform/internal/test_helpers"
+	"github.com/terminaldotshop/terraform-provider-terminal/internal/customfield"
+	"github.com/terminaldotshop/terraform-provider-terminal/internal/test_helpers"
 )
 
 type empty struct{}

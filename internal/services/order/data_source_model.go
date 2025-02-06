@@ -4,7 +4,7 @@ package order
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/stainless-sdks/terminal-terraform/internal/customfield"
+	"github.com/terminaldotshop/terraform-provider-terminal/internal/customfield"
 )
 
 type OrderDataSourceModel struct {

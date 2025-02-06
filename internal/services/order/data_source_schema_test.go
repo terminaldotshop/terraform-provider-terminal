@@ -6,8 +6,8 @@ import (
 	"context"
 	"testing"
 
-	"github.com/stainless-sdks/terminal-terraform/internal/services/order"
-	"github.com/stainless-sdks/terminal-terraform/internal/test_helpers"
+	"github.com/terminaldotshop/terraform-provider-terminal/internal/services/order"
+	"github.com/terminaldotshop/terraform-provider-terminal/internal/test_helpers"
 )
 
 func TestOrderDataSourceModelSchemaParity(t *testing.T) {
