@@ -1,0 +1,123 @@
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+package internal
+
+import (
+	"context"
+	"os"
+
+	"github.com/hashicorp/terraform-plugin-framework/datasource"
+	"github.com/hashicorp/terraform-plugin-framework/provider"
+	"github.com/hashicorp/terraform-plugin-framework/provider/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource"
+	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/stainless-sdks/terminal-terraform/internal/services/address"
+	"github.com/stainless-sdks/terminal-terraform/internal/services/app"
+	"github.com/stainless-sdks/terminal-terraform/internal/services/card"
+	"github.com/stainless-sdks/terminal-terraform/internal/services/cart"
+	"github.com/stainless-sdks/terminal-terraform/internal/services/email"
+	"github.com/stainless-sdks/terminal-terraform/internal/services/order"
+	"github.com/stainless-sdks/terminal-terraform/internal/services/profile"
+	"github.com/stainless-sdks/terminal-terraform/internal/services/subscription"
+	"github.com/stainless-sdks/terminal-terraform/internal/services/token"
+	"github.com/terminaldotshop/terminal-sdk-go"
+	"github.com/terminaldotshop/terminal-sdk-go/option"
+)
+
+var _ provider.ProviderWithConfigValidators = (*TerminalProvider)(nil)
+
+// TerminalProvider defines the provider implementation.
+type TerminalProvider struct {
+	// version is set to the provider version on release, "dev" when the
+	// provider is built and ran locally, and "test" when running acceptance
+	// testing.
+	version string
+}
+
+// TerminalProviderModel describes the provider data model.
+type TerminalProviderModel struct {
+	BaseURL     types.String `tfsdk:"base_url" json:"base_url,optional"`
+	BearerToken types.String `tfsdk:"bearer_token" json:"bearer_token,required"`
+}
+
+func (p *TerminalProvider) Metadata(ctx context.Context, req provider.MetadataRequest, resp *provider.MetadataResponse) {
+	resp.TypeName = "terminal"
+	resp.Version = p.version
+}
+
+func ProviderSchema(ctx context.Context) schema.Schema {
+	return schema.Schema{
+		Attributes: map[string]schema.Attribute{
+			"base_url": schema.StringAttribute{
+				Description: "Set the base url that the provider connects to. This can be used for testing in other environments.",
+				Optional:    true,
+			},
+			"bearer_token": schema.StringAttribute{
+				Required: true,
+			},
+		},
+	}
+}
+
+func (p *TerminalProvider) Schema(ctx context.Context, req provider.SchemaRequest, resp *provider.SchemaResponse) {
+	resp.Schema = ProviderSchema(ctx)
+}
+
+func (p *TerminalProvider) Configure(ctx context.Context, req provider.ConfigureRequest, resp *provider.ConfigureResponse) {
+
+	var data TerminalProviderModel
+
+	resp.Diagnostics.Append(req.Config.Get(ctx, &data)...)
+
+	opts := []option.RequestOption{}
+
+	if !data.BaseURL.IsNull() {
+		opts = append(opts, option.WithBaseURL(data.BaseURL.ValueString()))
+	}
+	if o, ok := os.LookupEnv("TERMINAL_BEARER_TOKEN"); ok {
+		opts = append(opts, option.WithBearerToken(o))
+	}
+	if !data.BearerToken.IsNull() {
+		opts = append(opts, option.WithBearerToken(data.BearerToken.ValueString()))
+	}
+
+	client := terminal.NewClient(
+		opts...,
+	)
+
+	resp.DataSourceData = client
+	resp.ResourceData = client
+}
+
+func (p *TerminalProvider) ConfigValidators(_ context.Context) []provider.ConfigValidator {
+	return []provider.ConfigValidator{}
+}
+
+func (p *TerminalProvider) Resources(ctx context.Context) []func() resource.Resource {
+	return []func() resource.Resource{
+		profile.NewResource,
+		address.NewResource,
+		card.NewResource,
+		subscription.NewResource,
+		token.NewResource,
+		app.NewResource,
+		email.NewResource,
+	}
+}
+
+func (p *TerminalProvider) DataSources(ctx context.Context) []func() datasource.DataSource {
+	return []func() datasource.DataSource{
+		cart.NewCartDataSource,
+		order.NewOrderDataSource,
+		token.NewTokenDataSource,
+		app.NewAppDataSource,
+	}
+}
+
+func NewProvider(version string) func() provider.Provider {
+	return func() provider.Provider {
+		return &TerminalProvider{
+			version: version,
+		}
+	}
+}
