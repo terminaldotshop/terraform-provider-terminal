@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -e
+
+cd "$(dirname "$0")/.."
+
+if [[ -n "$1" ]]; then
+  LOCAL_GO="$1"
+  shift
+else
+  LOCAL_GO=../terminal-go
+fi
+
+echo "==> Linking with local directory"
+go mod tidy -e
+go mod edit -replace github.com/terminaldotshop/terminal-sdk-go="$LOCAL_GO"
