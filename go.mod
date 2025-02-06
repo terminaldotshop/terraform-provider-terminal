@@ -1,4 +1,4 @@
-module github.com/stainless-sdks/terminal-terraform
+module github.com/terminaldotshop/terraform-provider-terminal
 
 go 1.22.0
 
