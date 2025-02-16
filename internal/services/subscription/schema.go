@@ -5,12 +5,14 @@ package subscription
 import (
 	"context"
 
+	"github.com/hashicorp/terraform-plugin-framework-validators/int64validator"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
+	"github.com/terminaldotshop/terraform-provider-terminal/internal/customfield"
 )
 
 var _ resource.ResourceWithConfigValidators = (*SubscriptionResource)(nil)
@@ -55,6 +57,26 @@ func ResourceSchema(ctx context.Context) schema.Schema {
 			"next": schema.StringAttribute{
 				Description: "Next shipment and billing date for the subscription.",
 				Optional:    true,
+			},
+			"schedule": schema.SingleNestedAttribute{
+				Description: "Schedule of the subscription.",
+				Computed:    true,
+				Optional:    true,
+				CustomType:  customfield.NewNestedObjectType[SubscriptionScheduleModel](ctx),
+				Attributes: map[string]schema.Attribute{
+					"type": schema.StringAttribute{
+						Required: true,
+						Validators: []validator.String{
+							stringvalidator.OneOfCaseInsensitive("fixed", "weekly"),
+						},
+					},
+					"interval": schema.Int64Attribute{
+						Optional: true,
+						Validators: []validator.Int64{
+							int64validator.AtLeast(1),
+						},
+					},
+				},
 			},
 			"data": schema.StringAttribute{
 				Computed: true,
