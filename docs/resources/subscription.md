@@ -21,6 +21,10 @@ resource "terminal_subscription" "example_subscription" {
   product_variant_id = "var_XXXXXXXXXXXXXXXXXXXXXXXXX"
   quantity = 1
   next = "2025-02-01T19:36:19.000Z"
+  schedule = {
+    interval = 3
+    type = "weekly"
+  }
 }
 ```
 
@@ -40,7 +44,19 @@ The format and length of IDs may change over time.
 ### Optional
 
 - `next` (String) Next shipment and billing date for the subscription.
+- `schedule` (Attributes) Schedule of the subscription. (see [below for nested schema](#nestedatt--schedule))
 
 ### Read-Only
 
 - `data` (String)
+
+<a id="nestedatt--schedule"></a>
+### Nested Schema for `schedule`
+
+Required:
+
+- `type` (String)
+
+Optional:
+
+- `interval` (Number)
