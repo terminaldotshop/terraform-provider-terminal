@@ -16,4 +16,5 @@ type AppDataDataSourceModel struct {
 	ID          types.String `tfsdk:"id" json:"id,computed"`
 	Name        types.String `tfsdk:"name" json:"name,computed"`
 	RedirectUri types.String `tfsdk:"redirect_uri" json:"redirectURI,computed"`
+	Secret      types.String `tfsdk:"secret" json:"secret,computed"`
 }

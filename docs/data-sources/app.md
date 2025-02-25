@@ -38,3 +38,4 @@ Read-Only:
 The format and length of IDs may change over time.
 - `name` (String) Name of the app.
 - `redirect_uri` (String) Redirect URI of the app.
+- `secret` (String) OAuth 2.0 client secret of the app (obfuscated).
