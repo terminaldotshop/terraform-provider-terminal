@@ -12,6 +12,7 @@ type AppModel struct {
 	ID          types.String                           `tfsdk:"id" json:"id,required"`
 	Name        types.String                           `tfsdk:"name" json:"name,required"`
 	RedirectUri types.String                           `tfsdk:"redirect_uri" json:"redirectURI,required"`
+	Secret      types.String                           `tfsdk:"secret" json:"secret,required"`
 	Data        customfield.NestedObject[AppDataModel] `tfsdk:"data" json:"data,computed"`
 }
 
@@ -27,4 +28,5 @@ type AppDataModel struct {
 	ID          types.String `tfsdk:"id" json:"id,computed"`
 	Name        types.String `tfsdk:"name" json:"name,computed"`
 	RedirectUri types.String `tfsdk:"redirect_uri" json:"redirectURI,computed"`
+	Secret      types.String `tfsdk:"secret" json:"secret,computed"`
 }

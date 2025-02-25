@@ -30,6 +30,10 @@ func ResourceSchema(ctx context.Context) schema.Schema {
 				Description: "Redirect URI of the app.",
 				Required:    true,
 			},
+			"secret": schema.StringAttribute{
+				Description: "OAuth 2.0 client secret of the app (obfuscated).",
+				Required:    true,
+			},
 			"data": schema.SingleNestedAttribute{
 				Description: "A Terminal App used for configuring an OAuth 2.0 client.",
 				Computed:    true,
@@ -45,6 +49,10 @@ func ResourceSchema(ctx context.Context) schema.Schema {
 					},
 					"redirect_uri": schema.StringAttribute{
 						Description: "Redirect URI of the app.",
+						Computed:    true,
+					},
+					"secret": schema.StringAttribute{
+						Description: "OAuth 2.0 client secret of the app (obfuscated).",
 						Computed:    true,
 					},
 				},

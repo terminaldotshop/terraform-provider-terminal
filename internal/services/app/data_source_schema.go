@@ -36,6 +36,10 @@ func DataSourceSchema(ctx context.Context) schema.Schema {
 						Description: "Redirect URI of the app.",
 						Computed:    true,
 					},
+					"secret": schema.StringAttribute{
+						Description: "OAuth 2.0 client secret of the app (obfuscated).",
+						Computed:    true,
+					},
 				},
 			},
 		},
