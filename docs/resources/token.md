@@ -34,14 +34,7 @@ resource "terminal_token" "example_token" {
 
 Read-Only:
 
+- `created` (String) The created time for the token.
 - `id` (String) Unique object identifier.
 The format and length of IDs may change over time.
-- `time` (Attributes) Relevant timestamps for the token. (see [below for nested schema](#nestedatt--data--time))
 - `token` (String) Personal access token (obfuscated).
-
-<a id="nestedatt--data--time"></a>
-### Nested Schema for `data.time`
-
-Read-Only:
-
-- `created` (String) The created time for the token.

@@ -33,19 +33,6 @@ func ResourceSchema(ctx context.Context) schema.Schema {
 				Description: "ID of the card used for the subscription.",
 				Required:    true,
 			},
-			"frequency": schema.StringAttribute{
-				Description: "Frequency of the subscription.",
-				Required:    true,
-				Validators: []validator.String{
-					stringvalidator.OneOfCaseInsensitive(
-						"fixed",
-						"daily",
-						"weekly",
-						"monthly",
-						"yearly",
-					),
-				},
-			},
 			"product_variant_id": schema.StringAttribute{
 				Description: "ID of the product variant being subscribed to.",
 				Required:    true,

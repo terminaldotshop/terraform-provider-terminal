@@ -12,7 +12,6 @@ type SubscriptionModel struct {
 	ID               types.String                                        `tfsdk:"id" json:"id,required"`
 	AddressID        types.String                                        `tfsdk:"address_id" json:"addressID,required"`
 	CardID           types.String                                        `tfsdk:"card_id" json:"cardID,required"`
-	Frequency        types.String                                        `tfsdk:"frequency" json:"frequency,required"`
 	ProductVariantID types.String                                        `tfsdk:"product_variant_id" json:"productVariantID,required"`
 	Quantity         types.Int64                                         `tfsdk:"quantity" json:"quantity,required"`
 	Next             types.String                                        `tfsdk:"next" json:"next,optional"`

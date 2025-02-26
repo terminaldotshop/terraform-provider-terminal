@@ -13,11 +13,7 @@ type TokenDataSourceModel struct {
 }
 
 type TokenDataDataSourceModel struct {
-	ID    types.String                                           `tfsdk:"id" json:"id,computed"`
-	Token types.String                                           `tfsdk:"token" json:"token,computed"`
-	Time  customfield.NestedObject[TokenDataTimeDataSourceModel] `tfsdk:"time" json:"time,computed"`
-}
-
-type TokenDataTimeDataSourceModel struct {
+	ID      types.String `tfsdk:"id" json:"id,computed"`
+	Token   types.String `tfsdk:"token" json:"token,computed"`
 	Created types.String `tfsdk:"created" json:"created,computed"`
 }
