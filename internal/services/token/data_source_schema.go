@@ -32,16 +32,9 @@ func DataSourceSchema(ctx context.Context) schema.Schema {
 						Description: "Personal access token (obfuscated).",
 						Computed:    true,
 					},
-					"time": schema.SingleNestedAttribute{
-						Description: "Relevant timestamps for the token.",
+					"created": schema.StringAttribute{
+						Description: "The created time for the token.",
 						Computed:    true,
-						CustomType:  customfield.NewNestedObjectType[TokenDataTimeDataSourceModel](ctx),
-						Attributes: map[string]schema.Attribute{
-							"created": schema.StringAttribute{
-								Description: "The created time for the token.",
-								Computed:    true,
-							},
-						},
 					},
 				},
 			},

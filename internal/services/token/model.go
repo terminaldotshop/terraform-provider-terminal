@@ -22,11 +22,7 @@ func (m TokenModel) MarshalJSONForUpdate(state TokenModel) (data []byte, err err
 }
 
 type TokenDataModel struct {
-	ID    types.String                                 `tfsdk:"id" json:"id,computed"`
-	Token types.String                                 `tfsdk:"token" json:"token,computed"`
-	Time  customfield.NestedObject[TokenDataTimeModel] `tfsdk:"time" json:"time,computed"`
-}
-
-type TokenDataTimeModel struct {
+	ID      types.String `tfsdk:"id" json:"id,computed"`
+	Token   types.String `tfsdk:"token" json:"token,computed"`
 	Created types.String `tfsdk:"created" json:"created,computed"`
 }
