@@ -98,6 +98,7 @@ func (p *TerminalProvider) Resources(ctx context.Context) []func() resource.Reso
 		profile.NewResource,
 		address.NewResource,
 		card.NewResource,
+		order.NewResource,
 		subscription.NewResource,
 		token.NewResource,
 		app.NewResource,
