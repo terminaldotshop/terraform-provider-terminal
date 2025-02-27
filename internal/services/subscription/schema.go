@@ -52,7 +52,8 @@ func ResourceSchema(ctx context.Context) schema.Schema {
 				CustomType:  customfield.NewNestedObjectType[SubscriptionScheduleModel](ctx),
 				Attributes: map[string]schema.Attribute{
 					"type": schema.StringAttribute{
-						Required: true,
+						Description: "available values: \"fixed\"",
+						Required:    true,
 						Validators: []validator.String{
 							stringvalidator.OneOfCaseInsensitive("fixed", "weekly"),
 						},
@@ -66,7 +67,8 @@ func ResourceSchema(ctx context.Context) schema.Schema {
 				},
 			},
 			"data": schema.StringAttribute{
-				Computed: true,
+				Description: "available values: \"ok\"",
+				Computed:    true,
 				Validators: []validator.String{
 					stringvalidator.OneOfCaseInsensitive("ok"),
 				},

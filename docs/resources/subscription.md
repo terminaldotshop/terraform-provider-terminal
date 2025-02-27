@@ -46,14 +46,14 @@ The format and length of IDs may change over time.
 
 ### Read-Only
 
-- `data` (String)
+- `data` (String) available values: "ok"
 
 <a id="nestedatt--schedule"></a>
 ### Nested Schema for `schedule`
 
 Required:
 
-- `type` (String)
+- `type` (String) available values: "fixed"
 
 Optional:
 
