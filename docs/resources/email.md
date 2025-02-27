@@ -27,4 +27,4 @@ resource "terminal_email" "example_email" {
 
 ### Read-Only
 
-- `data` (String)
+- `data` (String) available values: "ok"
