@@ -38,6 +38,7 @@ type TerminalProvider struct {
 type TerminalProviderModel struct {
 	BaseURL     types.String `tfsdk:"base_url" json:"base_url,optional"`
 	BearerToken types.String `tfsdk:"bearer_token" json:"bearer_token,required"`
+	App         types.String `tfsdk:"app" json:"app,optional"`
 }
 
 func (p *TerminalProvider) Metadata(ctx context.Context, req provider.MetadataRequest, resp *provider.MetadataResponse) {
@@ -54,6 +55,9 @@ func ProviderSchema(ctx context.Context) schema.Schema {
 			},
 			"bearer_token": schema.StringAttribute{
 				Required: true,
+			},
+			"app": schema.StringAttribute{
+				Optional: true,
 			},
 		},
 	}
@@ -79,6 +83,9 @@ func (p *TerminalProvider) Configure(ctx context.Context, req provider.Configure
 	}
 	if !data.BearerToken.IsNull() {
 		opts = append(opts, option.WithBearerToken(data.BearerToken.ValueString()))
+	}
+	if !data.App.IsNull() {
+		opts = append(opts, option.WithApp(data.App.ValueString()))
 	}
 
 	client := terminal.NewClient(
