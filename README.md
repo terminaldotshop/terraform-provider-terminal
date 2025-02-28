@@ -30,7 +30,7 @@ terraform {
 # Initialize the provider
 provider "terminal" {
   bearer_token = "My Bearer Token" # or set TERMINAL_BEARER_TOKEN env variable
-  app = "My App"
+  app_id = "My App ID"
 }
 
 # Configure a resource
@@ -55,7 +55,7 @@ If an environment variable is provided, then the option does not need to be set 
 | Property     | Environment variable    | Required | Default value |
 | ------------ | ----------------------- | -------- | ------------- |
 | bearer_token | `TERMINAL_BEARER_TOKEN` | true     | —             |
-| app          | -                       | false    | —             |
+| app_id       | -                       | false    | —             |
 
 ## Semantic versioning
 
