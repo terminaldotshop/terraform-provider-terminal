@@ -24,7 +24,7 @@ func ResourceSchema(ctx context.Context) schema.Schema {
 				PlanModifiers: []planmodifier.String{stringplanmodifier.RequiresReplace()},
 			},
 			"data": schema.StringAttribute{
-				Description: "Available values: \"ok\".",
+				Description: `Available values: "ok".`,
 				Computed:    true,
 				Validators: []validator.String{
 					stringvalidator.OneOfCaseInsensitive("ok"),

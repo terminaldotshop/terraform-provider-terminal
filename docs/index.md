@@ -15,6 +15,7 @@ description: |-
 ```terraform
 provider "terminal" {
   bearer_token = "My Bearer Token"
+  app_id = "My App ID"
 }
 ```
 
@@ -27,4 +28,5 @@ provider "terminal" {
 
 ### Optional
 
+- `app_id` (String)
 - `base_url` (String) Set the base url that the provider connects to. This can be used for testing in other environments.
