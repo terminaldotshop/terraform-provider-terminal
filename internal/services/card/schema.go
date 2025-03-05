@@ -19,7 +19,7 @@ func ResourceSchema(ctx context.Context) schema.Schema {
 			"id": schema.StringAttribute{
 				Description:   "Stripe card token. Learn how to [create one here](https://docs.stripe.com/api/tokens/create_card).",
 				Computed:      true,
-				PlanModifiers: []planmodifier.String{stringplanmodifier.RequiresReplace()},
+				PlanModifiers: []planmodifier.String{stringplanmodifier.UseStateForUnknown(), stringplanmodifier.RequiresReplace()},
 			},
 			"token": schema.StringAttribute{
 				Description:   "Stripe card token. Learn how to [create one here](https://docs.stripe.com/api/tokens/create_card).",
