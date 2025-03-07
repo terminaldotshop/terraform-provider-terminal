@@ -16,7 +16,7 @@ type SubscriptionModel struct {
 	Quantity         types.Int64                                         `tfsdk:"quantity" json:"quantity,required"`
 	Next             types.String                                        `tfsdk:"next" json:"next,optional"`
 	Schedule         customfield.NestedObject[SubscriptionScheduleModel] `tfsdk:"schedule" json:"schedule,computed_optional"`
-	Data             types.String                                        `tfsdk:"data" json:"data,computed"`
+	Data             customfield.NestedObject[SubscriptionDataModel]     `tfsdk:"data" json:"data,computed"`
 }
 
 func (m SubscriptionModel) MarshalJSON() (data []byte, err error) {
@@ -30,4 +30,19 @@ func (m SubscriptionModel) MarshalJSONForUpdate(state SubscriptionModel) (data [
 type SubscriptionScheduleModel struct {
 	Type     types.String `tfsdk:"type" json:"type,required"`
 	Interval types.Int64  `tfsdk:"interval" json:"interval,optional"`
+}
+
+type SubscriptionDataModel struct {
+	ID               types.String                                            `tfsdk:"id" json:"id,computed"`
+	AddressID        types.String                                            `tfsdk:"address_id" json:"addressID,computed"`
+	CardID           types.String                                            `tfsdk:"card_id" json:"cardID,computed"`
+	ProductVariantID types.String                                            `tfsdk:"product_variant_id" json:"productVariantID,computed"`
+	Quantity         types.Int64                                             `tfsdk:"quantity" json:"quantity,computed"`
+	Next             types.String                                            `tfsdk:"next" json:"next,computed"`
+	Schedule         customfield.NestedObject[SubscriptionDataScheduleModel] `tfsdk:"schedule" json:"schedule,computed"`
+}
+
+type SubscriptionDataScheduleModel struct {
+	Type     types.String `tfsdk:"type" json:"type,computed"`
+	Interval types.Int64  `tfsdk:"interval" json:"interval,computed"`
 }

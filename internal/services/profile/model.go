@@ -9,8 +9,8 @@ import (
 )
 
 type ProfileModel struct {
-	Email types.String                               `tfsdk:"email" json:"email,optional"`
-	Name  types.String                               `tfsdk:"name" json:"name,optional"`
+	Email types.String                               `tfsdk:"email" json:"email,required"`
+	Name  types.String                               `tfsdk:"name" json:"name,required"`
 	Data  customfield.NestedObject[ProfileDataModel] `tfsdk:"data" json:"data,computed"`
 }
 
