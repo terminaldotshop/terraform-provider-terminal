@@ -19,6 +19,7 @@ import (
 	"github.com/terminaldotshop/terraform-provider-terminal/internal/services/cart"
 	"github.com/terminaldotshop/terraform-provider-terminal/internal/services/email"
 	"github.com/terminaldotshop/terraform-provider-terminal/internal/services/order"
+	"github.com/terminaldotshop/terraform-provider-terminal/internal/services/product"
 	"github.com/terminaldotshop/terraform-provider-terminal/internal/services/profile"
 	"github.com/terminaldotshop/terraform-provider-terminal/internal/services/subscription"
 	"github.com/terminaldotshop/terraform-provider-terminal/internal/services/token"
@@ -115,8 +116,12 @@ func (p *TerminalProvider) Resources(ctx context.Context) []func() resource.Reso
 
 func (p *TerminalProvider) DataSources(ctx context.Context) []func() datasource.DataSource {
 	return []func() datasource.DataSource{
+		product.NewProductDataSource,
+		address.NewAddressDataSource,
+		card.NewCardDataSource,
 		cart.NewCartDataSource,
 		order.NewOrderDataSource,
+		subscription.NewSubscriptionDataSource,
 		token.NewTokenDataSource,
 		app.NewAppDataSource,
 	}

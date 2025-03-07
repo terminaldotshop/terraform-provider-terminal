@@ -132,7 +132,38 @@ func (r *AddressResource) Update(ctx context.Context, req resource.UpdateRequest
 }
 
 func (r *AddressResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
+	var data *AddressModel
 
+	resp.Diagnostics.Append(req.State.Get(ctx, &data)...)
+
+	if resp.Diagnostics.HasError() {
+		return
+	}
+
+	res := new(http.Response)
+	_, err := r.client.Address.Get(
+		ctx,
+		data.ID.ValueString(),
+		option.WithResponseBodyInto(&res),
+		option.WithMiddleware(logging.Middleware(ctx)),
+	)
+	if res != nil && res.StatusCode == 404 {
+		resp.Diagnostics.AddWarning("Resource not found", "The resource was not found on the server and will be removed from state.")
+		resp.State.RemoveResource(ctx)
+		return
+	}
+	if err != nil {
+		resp.Diagnostics.AddError("failed to make http request", err.Error())
+		return
+	}
+	bytes, _ := io.ReadAll(res.Body)
+	err = apijson.Unmarshal(bytes, &data)
+	if err != nil {
+		resp.Diagnostics.AddError("failed to deserialize http request", err.Error())
+		return
+	}
+
+	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 }
 
 func (r *AddressResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {

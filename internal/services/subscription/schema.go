@@ -66,11 +66,55 @@ func ResourceSchema(ctx context.Context) schema.Schema {
 					},
 				},
 			},
-			"data": schema.StringAttribute{
-				Description: `Available values: "ok".`,
+			"data": schema.SingleNestedAttribute{
+				Description: "Subscription to a Terminal shop product.",
 				Computed:    true,
-				Validators: []validator.String{
-					stringvalidator.OneOfCaseInsensitive("ok"),
+				CustomType:  customfield.NewNestedObjectType[SubscriptionDataModel](ctx),
+				Attributes: map[string]schema.Attribute{
+					"id": schema.StringAttribute{
+						Description: "Unique object identifier.\nThe format and length of IDs may change over time.",
+						Computed:    true,
+					},
+					"address_id": schema.StringAttribute{
+						Description: "ID of the shipping address used for the subscription.",
+						Computed:    true,
+					},
+					"card_id": schema.StringAttribute{
+						Description: "ID of the card used for the subscription.",
+						Computed:    true,
+					},
+					"product_variant_id": schema.StringAttribute{
+						Description: "ID of the product variant being subscribed to.",
+						Computed:    true,
+					},
+					"quantity": schema.Int64Attribute{
+						Description: "Quantity of the subscription.",
+						Computed:    true,
+					},
+					"next": schema.StringAttribute{
+						Description: "Next shipment and billing date for the subscription.",
+						Computed:    true,
+					},
+					"schedule": schema.SingleNestedAttribute{
+						Description: "Schedule of the subscription.",
+						Computed:    true,
+						CustomType:  customfield.NewNestedObjectType[SubscriptionDataScheduleModel](ctx),
+						Attributes: map[string]schema.Attribute{
+							"type": schema.StringAttribute{
+								Description: `Available values: "fixed".`,
+								Computed:    true,
+								Validators: []validator.String{
+									stringvalidator.OneOfCaseInsensitive("fixed", "weekly"),
+								},
+							},
+							"interval": schema.Int64Attribute{
+								Computed: true,
+								Validators: []validator.Int64{
+									int64validator.AtLeast(1),
+								},
+							},
+						},
+					},
 				},
 			},
 		},

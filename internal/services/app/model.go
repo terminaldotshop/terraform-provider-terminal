@@ -9,10 +9,9 @@ import (
 )
 
 type AppModel struct {
-	ID          types.String                           `tfsdk:"id" json:"id,required"`
+	ID          types.String                           `tfsdk:"id" path:"id,optional"`
 	Name        types.String                           `tfsdk:"name" json:"name,required"`
 	RedirectUri types.String                           `tfsdk:"redirect_uri" json:"redirectURI,required"`
-	Secret      types.String                           `tfsdk:"secret" json:"secret,required"`
 	Data        customfield.NestedObject[AppDataModel] `tfsdk:"data" json:"data,computed"`
 }
 

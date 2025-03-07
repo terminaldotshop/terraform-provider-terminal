@@ -9,15 +9,18 @@ import (
 	"net/http"
 
 	"github.com/hashicorp/terraform-plugin-framework/resource"
+	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/terminaldotshop/terminal-sdk-go"
 	"github.com/terminaldotshop/terminal-sdk-go/option"
 	"github.com/terminaldotshop/terraform-provider-terminal/internal/apijson"
+	"github.com/terminaldotshop/terraform-provider-terminal/internal/importpath"
 	"github.com/terminaldotshop/terraform-provider-terminal/internal/logging"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var _ resource.ResourceWithConfigure = (*CardResource)(nil)
 var _ resource.ResourceWithModifyPlan = (*CardResource)(nil)
+var _ resource.ResourceWithImportState = (*CardResource)(nil)
 
 func NewResource() resource.Resource {
 	return &CardResource{}
@@ -134,7 +137,39 @@ func (r *CardResource) Update(ctx context.Context, req resource.UpdateRequest, r
 }
 
 func (r *CardResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
+	var data *CardModel
 
+	resp.Diagnostics.Append(req.State.Get(ctx, &data)...)
+
+	if resp.Diagnostics.HasError() {
+		return
+	}
+
+	res := new(http.Response)
+	_, err := r.client.Card.Get(
+		ctx,
+		data.Token.ValueString(),
+		option.WithResponseBodyInto(&res),
+		option.WithMiddleware(logging.Middleware(ctx)),
+	)
+	if res != nil && res.StatusCode == 404 {
+		resp.Diagnostics.AddWarning("Resource not found", "The resource was not found on the server and will be removed from state.")
+		resp.State.RemoveResource(ctx)
+		return
+	}
+	if err != nil {
+		resp.Diagnostics.AddError("failed to make http request", err.Error())
+		return
+	}
+	bytes, _ := io.ReadAll(res.Body)
+	err = apijson.Unmarshal(bytes, &data)
+	if err != nil {
+		resp.Diagnostics.AddError("failed to deserialize http request", err.Error())
+		return
+	}
+	data.ID = data.Token
+
+	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 }
 
 func (r *CardResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
@@ -153,6 +188,44 @@ func (r *CardResource) Delete(ctx context.Context, req resource.DeleteRequest, r
 	)
 	if err != nil {
 		resp.Diagnostics.AddError("failed to make http request", err.Error())
+		return
+	}
+	data.ID = data.Token
+
+	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
+}
+
+func (r *CardResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
+	var data *CardModel = new(CardModel)
+
+	path := ""
+	diags := importpath.ParseImportID(
+		req.ID,
+		"<id>",
+		&path,
+	)
+	resp.Diagnostics.Append(diags...)
+	if resp.Diagnostics.HasError() {
+		return
+	}
+
+	data.Token = types.StringValue(path)
+
+	res := new(http.Response)
+	_, err := r.client.Card.Get(
+		ctx,
+		path,
+		option.WithResponseBodyInto(&res),
+		option.WithMiddleware(logging.Middleware(ctx)),
+	)
+	if err != nil {
+		resp.Diagnostics.AddError("failed to make http request", err.Error())
+		return
+	}
+	bytes, _ := io.ReadAll(res.Body)
+	err = apijson.Unmarshal(bytes, &data)
+	if err != nil {
+		resp.Diagnostics.AddError("failed to deserialize http request", err.Error())
 		return
 	}
 	data.ID = data.Token

@@ -35,8 +35,8 @@ provider "terminal" {
 
 # Configure a resource
 resource "terminal_profile" "example_profile" {
-  email = "john@example.com"
-  name = "John Doe"
+  email = "dev@stainless.com"
+  name = "name"
 }
 ```
 

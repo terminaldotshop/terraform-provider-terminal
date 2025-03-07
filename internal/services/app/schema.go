@@ -18,21 +18,17 @@ func ResourceSchema(ctx context.Context) schema.Schema {
 	return schema.Schema{
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
-				Description:   "Unique object identifier.\nThe format and length of IDs may change over time.",
-				Required:      true,
-				PlanModifiers: []planmodifier.String{stringplanmodifier.UseStateForUnknown(), stringplanmodifier.RequiresReplace()},
+				Description:   "ID of the app to get.",
+				Optional:      true,
+				PlanModifiers: []planmodifier.String{stringplanmodifier.RequiresReplace()},
 			},
 			"name": schema.StringAttribute{
-				Description: "Name of the app.",
-				Required:    true,
+				Required:      true,
+				PlanModifiers: []planmodifier.String{stringplanmodifier.RequiresReplace()},
 			},
 			"redirect_uri": schema.StringAttribute{
-				Description: "Redirect URI of the app.",
-				Required:    true,
-			},
-			"secret": schema.StringAttribute{
-				Description: "OAuth 2.0 client secret of the app (obfuscated).",
-				Required:    true,
+				Required:      true,
+				PlanModifiers: []planmodifier.String{stringplanmodifier.RequiresReplace()},
 			},
 			"data": schema.SingleNestedAttribute{
 				Description: "A Terminal App used for configuring an OAuth 2.0 client.",
