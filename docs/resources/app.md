@@ -14,10 +14,8 @@ description: |-
 
 ```terraform
 resource "terminal_app" "example_app" {
-  id = "cli_XXXXXXXXXXXXXXXXXXXXXXXXX"
-  name = "Example App"
-  redirect_uri = "https://example.com/callback"
-  secret = "sec_******XXXX"
+  name = "name"
+  redirect_uri = "redirectURI"
 }
 ```
 
@@ -26,11 +24,12 @@ resource "terminal_app" "example_app" {
 
 ### Required
 
-- `id` (String) Unique object identifier.
-The format and length of IDs may change over time.
-- `name` (String) Name of the app.
-- `redirect_uri` (String) Redirect URI of the app.
-- `secret` (String) OAuth 2.0 client secret of the app (obfuscated).
+- `name` (String)
+- `redirect_uri` (String)
+
+### Optional
+
+- `id` (String) ID of the app to get.
 
 ### Read-Only
 
@@ -46,11 +45,3 @@ The format and length of IDs may change over time.
 - `name` (String) Name of the app.
 - `redirect_uri` (String) Redirect URI of the app.
 - `secret` (String) OAuth 2.0 client secret of the app (obfuscated).
-
-## Import
-
-Import is supported using the following syntax:
-
-```shell
-$ terraform import terminal_app.example '<id>'
-```

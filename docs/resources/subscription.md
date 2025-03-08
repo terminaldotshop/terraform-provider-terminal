@@ -46,7 +46,7 @@ The format and length of IDs may change over time.
 
 ### Read-Only
 
-- `data` (String) Available values: "ok".
+- `data` (Attributes) Subscription to a Terminal shop product. (see [below for nested schema](#nestedatt--data))
 
 <a id="nestedatt--schedule"></a>
 ### Nested Schema for `schedule`
@@ -58,3 +58,34 @@ Required:
 Optional:
 
 - `interval` (Number)
+
+
+<a id="nestedatt--data"></a>
+### Nested Schema for `data`
+
+Read-Only:
+
+- `address_id` (String) ID of the shipping address used for the subscription.
+- `card_id` (String) ID of the card used for the subscription.
+- `id` (String) Unique object identifier.
+The format and length of IDs may change over time.
+- `next` (String) Next shipment and billing date for the subscription.
+- `product_variant_id` (String) ID of the product variant being subscribed to.
+- `quantity` (Number) Quantity of the subscription.
+- `schedule` (Attributes) Schedule of the subscription. (see [below for nested schema](#nestedatt--data--schedule))
+
+<a id="nestedatt--data--schedule"></a>
+### Nested Schema for `data.schedule`
+
+Read-Only:
+
+- `interval` (Number)
+- `type` (String) Available values: "fixed".
+
+## Import
+
+Import is supported using the following syntax:
+
+```shell
+$ terraform import terminal_subscription.example '<id>'
+```
