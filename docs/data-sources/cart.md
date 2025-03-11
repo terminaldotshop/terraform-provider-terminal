@@ -33,6 +33,7 @@ Read-Only:
 - `address_id` (String) ID of the shipping address selected on the current user's cart.
 - `amount` (Attributes) The subtotal and shipping amounts for the current user's cart. (see [below for nested schema](#nestedatt--data--amount))
 - `card_id` (String) ID of the card selected on the current user's cart.
+- `gift_card_id` (String) ID of the gift card applied to the current user's cart.
 - `items` (Attributes List) An array of items in the current user's cart. (see [below for nested schema](#nestedatt--data--items))
 - `shipping` (Attributes) Shipping information for the current user's cart. (see [below for nested schema](#nestedatt--data--shipping))
 - `subtotal` (Number) The subtotal of all items in the current user's cart, in cents (USD).
@@ -42,8 +43,10 @@ Read-Only:
 
 Read-Only:
 
+- `gift_card` (Number) Amount applied from gift card on the current user's cart, in cents (USD).
 - `shipping` (Number) Shipping amount of the current user's cart, in cents (USD).
 - `subtotal` (Number) Subtotal of the current user's cart, in cents (USD).
+- `total` (Number) Total amount after gift card applied, in cents (USD).
 
 
 <a id="nestedatt--data--items"></a>
