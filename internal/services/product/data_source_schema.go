@@ -94,9 +94,6 @@ func DataSourceSchema(ctx context.Context) schema.Schema {
 							"market_na": schema.BoolAttribute{
 								Computed: true,
 							},
-							"type": schema.StringAttribute{
-								Computed: true,
-							},
 						},
 					},
 				},
