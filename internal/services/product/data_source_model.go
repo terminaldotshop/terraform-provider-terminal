@@ -34,5 +34,4 @@ type ProductDataTagsDataSourceModel struct {
 	Featured types.Bool   `tfsdk:"featured" json:"featured,computed"`
 	MarketEu types.Bool   `tfsdk:"market_eu" json:"market_eu,computed"`
 	MarketNa types.Bool   `tfsdk:"market_na" json:"market_na,computed"`
-	Type     types.String `tfsdk:"type" json:"type,computed"`
 }

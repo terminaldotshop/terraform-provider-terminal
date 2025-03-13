@@ -54,7 +54,6 @@ Read-Only:
 - `featured` (Boolean)
 - `market_eu` (Boolean)
 - `market_na` (Boolean)
-- `type` (String)
 
 
 <a id="nestedatt--data--variants"></a>
