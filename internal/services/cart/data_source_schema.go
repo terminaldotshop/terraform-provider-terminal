@@ -31,16 +31,12 @@ func DataSourceSchema(ctx context.Context) schema.Schema {
 								Description: "Subtotal of the current user's cart, in cents (USD).",
 								Computed:    true,
 							},
-							"gift_card": schema.Int64Attribute{
-								Description: "Amount applied from gift card on the current user's cart, in cents (USD).",
-								Computed:    true,
-							},
 							"shipping": schema.Int64Attribute{
 								Description: "Shipping amount of the current user's cart, in cents (USD).",
 								Computed:    true,
 							},
 							"total": schema.Int64Attribute{
-								Description: "Total amount after gift card applied, in cents (USD).",
+								Description: "Total amount after any discounts, in cents (USD).",
 								Computed:    true,
 							},
 						},
@@ -86,10 +82,6 @@ func DataSourceSchema(ctx context.Context) schema.Schema {
 					},
 					"card_id": schema.StringAttribute{
 						Description: "ID of the card selected on the current user's cart.",
-						Computed:    true,
-					},
-					"gift_card_id": schema.StringAttribute{
-						Description: "ID of the gift card applied to the current user's cart.",
 						Computed:    true,
 					},
 					"shipping": schema.SingleNestedAttribute{

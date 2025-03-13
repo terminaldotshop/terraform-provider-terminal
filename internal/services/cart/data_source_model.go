@@ -12,18 +12,16 @@ type CartDataSourceModel struct {
 }
 
 type CartDataDataSourceModel struct {
-	Amount     customfield.NestedObject[CartDataAmountDataSourceModel]    `tfsdk:"amount" json:"amount,computed"`
-	Items      customfield.NestedObjectList[CartDataItemsDataSourceModel] `tfsdk:"items" json:"items,computed"`
-	Subtotal   types.Int64                                                `tfsdk:"subtotal" json:"subtotal,computed"`
-	AddressID  types.String                                               `tfsdk:"address_id" json:"addressID,computed"`
-	CardID     types.String                                               `tfsdk:"card_id" json:"cardID,computed"`
-	GiftCardID types.String                                               `tfsdk:"gift_card_id" json:"giftCardID,computed"`
-	Shipping   customfield.NestedObject[CartDataShippingDataSourceModel]  `tfsdk:"shipping" json:"shipping,computed"`
+	Amount    customfield.NestedObject[CartDataAmountDataSourceModel]    `tfsdk:"amount" json:"amount,computed"`
+	Items     customfield.NestedObjectList[CartDataItemsDataSourceModel] `tfsdk:"items" json:"items,computed"`
+	Subtotal  types.Int64                                                `tfsdk:"subtotal" json:"subtotal,computed"`
+	AddressID types.String                                               `tfsdk:"address_id" json:"addressID,computed"`
+	CardID    types.String                                               `tfsdk:"card_id" json:"cardID,computed"`
+	Shipping  customfield.NestedObject[CartDataShippingDataSourceModel]  `tfsdk:"shipping" json:"shipping,computed"`
 }
 
 type CartDataAmountDataSourceModel struct {
 	Subtotal types.Int64 `tfsdk:"subtotal" json:"subtotal,computed"`
-	GiftCard types.Int64 `tfsdk:"gift_card" json:"giftCard,computed"`
 	Shipping types.Int64 `tfsdk:"shipping" json:"shipping,computed"`
 	Total    types.Int64 `tfsdk:"total" json:"total,computed"`
 }
