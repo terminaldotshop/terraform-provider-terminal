@@ -7,6 +7,7 @@ import (
 	"os"
 
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
+	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/provider"
 	"github.com/hashicorp/terraform-plugin-framework/provider/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
@@ -38,7 +39,7 @@ type TerminalProvider struct {
 // TerminalProviderModel describes the provider data model.
 type TerminalProviderModel struct {
 	BaseURL     types.String `tfsdk:"base_url" json:"base_url,optional"`
-	BearerToken types.String `tfsdk:"bearer_token" json:"bearer_token,required"`
+	BearerToken types.String `tfsdk:"bearer_token" json:"bearer_token,optional"`
 	AppID       types.String `tfsdk:"app_id" json:"app_id,optional"`
 }
 
@@ -55,7 +56,7 @@ func ProviderSchema(ctx context.Context) schema.Schema {
 				Optional:    true,
 			},
 			"bearer_token": schema.StringAttribute{
-				Required: true,
+				Optional: true,
 			},
 			"app_id": schema.StringAttribute{
 				Optional: true,
@@ -76,16 +77,26 @@ func (p *TerminalProvider) Configure(ctx context.Context, req provider.Configure
 
 	opts := []option.RequestOption{}
 
-	if !data.BaseURL.IsNull() {
+	if !data.BaseURL.IsNull() && !data.BaseURL.IsUnknown() {
 		opts = append(opts, option.WithBaseURL(data.BaseURL.ValueString()))
+	} else if o, ok := os.LookupEnv("TERMINAL_BASE_URL"); ok {
+		opts = append(opts, option.WithBaseURL(o))
 	}
-	if o, ok := os.LookupEnv("TERMINAL_BEARER_TOKEN"); ok {
-		opts = append(opts, option.WithBearerToken(o))
-	}
-	if !data.BearerToken.IsNull() {
+
+	if !data.BearerToken.IsNull() && !data.BearerToken.IsUnknown() {
 		opts = append(opts, option.WithBearerToken(data.BearerToken.ValueString()))
+	} else if o, ok := os.LookupEnv("TERMINAL_BEARER_TOKEN"); ok {
+		opts = append(opts, option.WithBearerToken(o))
+	} else {
+		resp.Diagnostics.AddAttributeError(
+			path.Root("bearer_token"),
+			"Missing bearer_token value",
+			"The bearer_token field is required. Set it in provider configuration or via the \"TERMINAL_BEARER_TOKEN\" environment variable.",
+		)
+		return
 	}
-	if !data.AppID.IsNull() {
+
+	if !data.AppID.IsNull() && !data.AppID.IsUnknown() {
 		opts = append(opts, option.WithAppID(data.AppID.ValueString()))
 	}
 
