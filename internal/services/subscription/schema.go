@@ -9,6 +9,8 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -26,24 +28,29 @@ func ResourceSchema(ctx context.Context) schema.Schema {
 				PlanModifiers: []planmodifier.String{stringplanmodifier.UseStateForUnknown(), stringplanmodifier.RequiresReplace()},
 			},
 			"address_id": schema.StringAttribute{
-				Description: "ID of the shipping address used for the subscription.",
-				Required:    true,
+				Description:   "ID of the shipping address used for the subscription.",
+				Required:      true,
+				PlanModifiers: []planmodifier.String{stringplanmodifier.RequiresReplace()},
 			},
 			"card_id": schema.StringAttribute{
-				Description: "ID of the card used for the subscription.",
-				Required:    true,
+				Description:   "ID of the card used for the subscription.",
+				Required:      true,
+				PlanModifiers: []planmodifier.String{stringplanmodifier.RequiresReplace()},
 			},
 			"product_variant_id": schema.StringAttribute{
-				Description: "ID of the product variant being subscribed to.",
-				Required:    true,
+				Description:   "ID of the product variant being subscribed to.",
+				Required:      true,
+				PlanModifiers: []planmodifier.String{stringplanmodifier.RequiresReplace()},
 			},
 			"quantity": schema.Int64Attribute{
-				Description: "Quantity of the subscription.",
-				Required:    true,
+				Description:   "Quantity of the subscription.",
+				Required:      true,
+				PlanModifiers: []planmodifier.Int64{int64planmodifier.RequiresReplace()},
 			},
 			"next": schema.StringAttribute{
-				Description: "Next shipment and billing date for the subscription.",
-				Optional:    true,
+				Description:   "Next shipment and billing date for the subscription.",
+				Optional:      true,
+				PlanModifiers: []planmodifier.String{stringplanmodifier.RequiresReplace()},
 			},
 			"schedule": schema.SingleNestedAttribute{
 				Description: "Schedule of the subscription.",
@@ -65,6 +72,7 @@ func ResourceSchema(ctx context.Context) schema.Schema {
 						},
 					},
 				},
+				PlanModifiers: []planmodifier.Object{objectplanmodifier.RequiresReplace()},
 			},
 			"data": schema.SingleNestedAttribute{
 				Description: "Subscription to a Terminal shop product.",
