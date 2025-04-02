@@ -2,7 +2,7 @@ module github.com/terminaldotshop/terraform-provider-terminal
 
 go 1.23.0
 
-toolchain go1.23.7
+toolchain go1.23.8
 
 require (
 	github.com/davecgh/go-spew v1.1.1
@@ -13,7 +13,7 @@ require (
 	github.com/hashicorp/terraform-plugin-framework-validators v0.17.0
 	github.com/hashicorp/terraform-plugin-go v0.26.0
 	github.com/hashicorp/terraform-plugin-log v0.9.0
-	github.com/terminaldotshop/terminal-sdk-go v1.7.0
+	github.com/terminaldotshop/terminal-sdk-go v1.7.1
 	github.com/tidwall/gjson v1.18.0
 	github.com/tidwall/sjson v1.2.5
 )
