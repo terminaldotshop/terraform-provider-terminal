@@ -46,7 +46,10 @@ type OrderDataShippingDataSourceModel struct {
 }
 
 type OrderDataTrackingDataSourceModel struct {
-	Number  types.String `tfsdk:"number" json:"number,computed"`
-	Service types.String `tfsdk:"service" json:"service,computed"`
-	URL     types.String `tfsdk:"url" json:"url,computed"`
+	Number          types.String `tfsdk:"number" json:"number,computed"`
+	Service         types.String `tfsdk:"service" json:"service,computed"`
+	Status          types.String `tfsdk:"status" json:"status,computed"`
+	StatusDetails   types.String `tfsdk:"status_details" json:"statusDetails,computed"`
+	StatusUpdatedAt types.String `tfsdk:"status_updated_at" json:"statusUpdatedAt,computed"`
+	URL             types.String `tfsdk:"url" json:"url,computed"`
 }
