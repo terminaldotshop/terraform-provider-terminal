@@ -129,6 +129,18 @@ func DataSourceSchema(ctx context.Context) schema.Schema {
 								Description: "Shipping service of the order.",
 								Computed:    true,
 							},
+							"status": schema.StringAttribute{
+								Description: "Current tracking status of the shipment.",
+								Computed:    true,
+							},
+							"status_details": schema.StringAttribute{
+								Description: "Additional details about the tracking status.",
+								Computed:    true,
+							},
+							"status_updated_at": schema.StringAttribute{
+								Description: "When the tracking status was last updated.",
+								Computed:    true,
+							},
 							"url": schema.StringAttribute{
 								Description: "Tracking URL of the order.",
 								Computed:    true,
