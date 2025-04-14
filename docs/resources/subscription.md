@@ -17,6 +17,7 @@ resource "terminal_subscription" "example_subscription" {
   id = "sub_XXXXXXXXXXXXXXXXXXXXXXXXX"
   address_id = "shp_XXXXXXXXXXXXXXXXXXXXXXXXX"
   card_id = "crd_XXXXXXXXXXXXXXXXXXXXXXXXX"
+  created = "2024-06-29T19:36:19.000Z"
   product_variant_id = "var_XXXXXXXXXXXXXXXXXXXXXXXXX"
   quantity = 1
   next = "2025-02-01T19:36:19.000Z"
@@ -34,6 +35,7 @@ resource "terminal_subscription" "example_subscription" {
 
 - `address_id` (String) ID of the shipping address used for the subscription.
 - `card_id` (String) ID of the card used for the subscription.
+- `created` (String) Date the subscription was created.
 - `id` (String) Unique object identifier.
 The format and length of IDs may change over time.
 - `product_variant_id` (String) ID of the product variant being subscribed to.
@@ -67,6 +69,7 @@ Read-Only:
 
 - `address_id` (String) ID of the shipping address used for the subscription.
 - `card_id` (String) ID of the card used for the subscription.
+- `created` (String) Date the subscription was created.
 - `id` (String) Unique object identifier.
 The format and length of IDs may change over time.
 - `next` (String) Next shipment and billing date for the subscription.

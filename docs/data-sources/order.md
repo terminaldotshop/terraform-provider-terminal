@@ -35,6 +35,7 @@ data "terminal_order" "example_order" {
 Read-Only:
 
 - `amount` (Attributes) The subtotal and shipping amounts of the order. (see [below for nested schema](#nestedatt--data--amount))
+- `created` (String) Date the order was created.
 - `id` (String) Unique object identifier.
 The format and length of IDs may change over time.
 - `index` (Number) Zero-based index of the order for this user only.

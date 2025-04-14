@@ -32,6 +32,10 @@ func DataSourceSchema(ctx context.Context) schema.Schema {
 						Description: "Brand of the card.",
 						Computed:    true,
 					},
+					"created": schema.StringAttribute{
+						Description: "Date the card was created.",
+						Computed:    true,
+					},
 					"expiration": schema.SingleNestedAttribute{
 						Description: "Expiration of the card.",
 						Computed:    true,

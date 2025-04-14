@@ -36,6 +36,7 @@ Read-Only:
 
 - `address_id` (String) ID of the shipping address used for the subscription.
 - `card_id` (String) ID of the card used for the subscription.
+- `created` (String) Date the subscription was created.
 - `id` (String) Unique object identifier.
 The format and length of IDs may change over time.
 - `next` (String) Next shipment and billing date for the subscription.

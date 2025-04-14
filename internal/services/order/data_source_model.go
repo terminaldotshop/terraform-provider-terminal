@@ -15,6 +15,7 @@ type OrderDataSourceModel struct {
 type OrderDataDataSourceModel struct {
 	ID       types.String                                                `tfsdk:"id" json:"id,computed"`
 	Amount   customfield.NestedObject[OrderDataAmountDataSourceModel]    `tfsdk:"amount" json:"amount,computed"`
+	Created  types.String                                                `tfsdk:"created" json:"created,computed"`
 	Items    customfield.NestedObjectList[OrderDataItemsDataSourceModel] `tfsdk:"items" json:"items,computed"`
 	Shipping customfield.NestedObject[OrderDataShippingDataSourceModel]  `tfsdk:"shipping" json:"shipping,computed"`
 	Tracking customfield.NestedObject[OrderDataTrackingDataSourceModel]  `tfsdk:"tracking" json:"tracking,computed"`

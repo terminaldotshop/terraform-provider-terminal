@@ -35,6 +35,7 @@ data "terminal_card" "example_card" {
 Read-Only:
 
 - `brand` (String) Brand of the card.
+- `created` (String) Date the card was created.
 - `expiration` (Attributes) Expiration of the card. (see [below for nested schema](#nestedatt--data--expiration))
 - `id` (String) Unique object identifier.
 The format and length of IDs may change over time.
