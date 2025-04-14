@@ -16,6 +16,7 @@ type AddressDataDataSourceModel struct {
 	ID       types.String `tfsdk:"id" json:"id,computed"`
 	City     types.String `tfsdk:"city" json:"city,computed"`
 	Country  types.String `tfsdk:"country" json:"country,computed"`
+	Created  types.String `tfsdk:"created" json:"created,computed"`
 	Name     types.String `tfsdk:"name" json:"name,computed"`
 	Street1  types.String `tfsdk:"street1" json:"street1,computed"`
 	Zip      types.String `tfsdk:"zip" json:"zip,computed"`

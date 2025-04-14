@@ -54,6 +54,7 @@ Read-Only:
 
 - `city` (String) City of the address.
 - `country` (String) ISO 3166-1 alpha-2 country code of the address.
+- `created` (String) Date the address was created.
 - `id` (String) Unique object identifier.
 The format and length of IDs may change over time.
 - `name` (String) The recipient's name.

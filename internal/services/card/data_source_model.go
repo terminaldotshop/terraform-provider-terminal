@@ -15,6 +15,7 @@ type CardDataSourceModel struct {
 type CardDataDataSourceModel struct {
 	ID         types.String                                                `tfsdk:"id" json:"id,computed"`
 	Brand      types.String                                                `tfsdk:"brand" json:"brand,computed"`
+	Created    types.String                                                `tfsdk:"created" json:"created,computed"`
 	Expiration customfield.NestedObject[CardDataExpirationDataSourceModel] `tfsdk:"expiration" json:"expiration,computed"`
 	Last4      types.String                                                `tfsdk:"last4" json:"last4,computed"`
 }

@@ -36,6 +36,10 @@ func DataSourceSchema(ctx context.Context) schema.Schema {
 						Description: "ISO 3166-1 alpha-2 country code of the address.",
 						Computed:    true,
 					},
+					"created": schema.StringAttribute{
+						Description: "Date the address was created.",
+						Computed:    true,
+					},
 					"name": schema.StringAttribute{
 						Description: "The recipient's name.",
 						Computed:    true,

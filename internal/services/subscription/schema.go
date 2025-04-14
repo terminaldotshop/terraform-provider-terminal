@@ -37,6 +37,11 @@ func ResourceSchema(ctx context.Context) schema.Schema {
 				Required:      true,
 				PlanModifiers: []planmodifier.String{stringplanmodifier.RequiresReplace()},
 			},
+			"created": schema.StringAttribute{
+				Description:   "Date the subscription was created.",
+				Required:      true,
+				PlanModifiers: []planmodifier.String{stringplanmodifier.RequiresReplace()},
+			},
 			"product_variant_id": schema.StringAttribute{
 				Description:   "ID of the product variant being subscribed to.",
 				Required:      true,
@@ -89,6 +94,10 @@ func ResourceSchema(ctx context.Context) schema.Schema {
 					},
 					"card_id": schema.StringAttribute{
 						Description: "ID of the card used for the subscription.",
+						Computed:    true,
+					},
+					"created": schema.StringAttribute{
+						Description: "Date the subscription was created.",
 						Computed:    true,
 					},
 					"product_variant_id": schema.StringAttribute{

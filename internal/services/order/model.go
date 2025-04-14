@@ -27,6 +27,7 @@ func (m OrderModel) MarshalJSONForUpdate(state OrderModel) (data []byte, err err
 type OrderDataModel struct {
 	ID       types.String                                      `tfsdk:"id" json:"id,computed"`
 	Amount   customfield.NestedObject[OrderDataAmountModel]    `tfsdk:"amount" json:"amount,computed"`
+	Created  types.String                                      `tfsdk:"created" json:"created,computed"`
 	Items    customfield.NestedObjectList[OrderDataItemsModel] `tfsdk:"items" json:"items,computed"`
 	Shipping customfield.NestedObject[OrderDataShippingModel]  `tfsdk:"shipping" json:"shipping,computed"`
 	Tracking customfield.NestedObject[OrderDataTrackingModel]  `tfsdk:"tracking" json:"tracking,computed"`

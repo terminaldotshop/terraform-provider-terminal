@@ -45,6 +45,10 @@ func DataSourceSchema(ctx context.Context) schema.Schema {
 							},
 						},
 					},
+					"created": schema.StringAttribute{
+						Description: "Date the order was created.",
+						Computed:    true,
+					},
 					"items": schema.ListNestedAttribute{
 						Description: "Items in the order.",
 						Computed:    true,
