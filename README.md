@@ -1,7 +1,7 @@
 # Terminal Terraform Provider
 
 The [Terminal Terraform provider](https://registry.terraform.io/providers/terminaldotshop/terminal/latest/docs) provides convenient access to
-[the Terminal REST API](https://terminal.shop/docs) from Terraform.
+the [Terminal REST API](https://terminal.shop/docs) from Terraform.
 
 It is generated with [Stainless](https://www.stainless.com/).
 
