@@ -10,7 +10,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -26,16 +25,6 @@ func ResourceSchema(ctx context.Context) schema.Schema {
 				Description:   "Unique object identifier.\nThe format and length of IDs may change over time.",
 				Required:      true,
 				PlanModifiers: []planmodifier.String{stringplanmodifier.UseStateForUnknown(), stringplanmodifier.RequiresReplace()},
-			},
-			"address_id": schema.StringAttribute{
-				Description:   "ID of the shipping address used for the subscription.",
-				Required:      true,
-				PlanModifiers: []planmodifier.String{stringplanmodifier.RequiresReplace()},
-			},
-			"card_id": schema.StringAttribute{
-				Description:   "ID of the card used for the subscription.",
-				Required:      true,
-				PlanModifiers: []planmodifier.String{stringplanmodifier.RequiresReplace()},
 			},
 			"created": schema.StringAttribute{
 				Description:   "Date the subscription was created.",
@@ -57,6 +46,14 @@ func ResourceSchema(ctx context.Context) schema.Schema {
 				Optional:      true,
 				PlanModifiers: []planmodifier.String{stringplanmodifier.RequiresReplace()},
 			},
+			"address_id": schema.StringAttribute{
+				Description: "ID of the shipping address used for the subscription.",
+				Required:    true,
+			},
+			"card_id": schema.StringAttribute{
+				Description: "ID of the card used for the subscription.",
+				Required:    true,
+			},
 			"schedule": schema.SingleNestedAttribute{
 				Description: "Schedule of the subscription.",
 				Computed:    true,
@@ -77,7 +74,6 @@ func ResourceSchema(ctx context.Context) schema.Schema {
 						},
 					},
 				},
-				PlanModifiers: []planmodifier.Object{objectplanmodifier.RequiresReplace()},
 			},
 			"data": schema.SingleNestedAttribute{
 				Description: "Subscription to a Terminal shop product.",
