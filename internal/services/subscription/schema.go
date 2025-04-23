@@ -31,6 +31,11 @@ func ResourceSchema(ctx context.Context) schema.Schema {
 				Required:      true,
 				PlanModifiers: []planmodifier.String{stringplanmodifier.RequiresReplace()},
 			},
+			"price": schema.Int64Attribute{
+				Description:   "Price of the subscription in cents (USD).",
+				Required:      true,
+				PlanModifiers: []planmodifier.Int64{int64planmodifier.RequiresReplace()},
+			},
 			"product_variant_id": schema.StringAttribute{
 				Description:   "ID of the product variant being subscribed to.",
 				Required:      true,
@@ -94,6 +99,10 @@ func ResourceSchema(ctx context.Context) schema.Schema {
 					},
 					"created": schema.StringAttribute{
 						Description: "Date the subscription was created.",
+						Computed:    true,
+					},
+					"price": schema.Int64Attribute{
+						Description: "Price of the subscription in cents (USD).",
 						Computed:    true,
 					},
 					"product_variant_id": schema.StringAttribute{
