@@ -40,6 +40,7 @@ Read-Only:
 - `id` (String) Unique object identifier.
 The format and length of IDs may change over time.
 - `next` (String) Next shipment and billing date for the subscription.
+- `price` (Number) Price of the subscription in cents (USD).
 - `product_variant_id` (String) ID of the product variant being subscribed to.
 - `quantity` (Number) Quantity of the subscription.
 - `schedule` (Attributes) Schedule of the subscription. (see [below for nested schema](#nestedatt--data--schedule))

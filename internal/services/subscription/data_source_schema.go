@@ -43,6 +43,10 @@ func DataSourceSchema(ctx context.Context) schema.Schema {
 						Description: "Date the subscription was created.",
 						Computed:    true,
 					},
+					"price": schema.Int64Attribute{
+						Description: "Price of the subscription in cents (USD).",
+						Computed:    true,
+					},
 					"product_variant_id": schema.StringAttribute{
 						Description: "ID of the product variant being subscribed to.",
 						Computed:    true,

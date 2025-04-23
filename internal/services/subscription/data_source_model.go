@@ -17,6 +17,7 @@ type SubscriptionDataDataSourceModel struct {
 	AddressID        types.String                                                      `tfsdk:"address_id" json:"addressID,computed"`
 	CardID           types.String                                                      `tfsdk:"card_id" json:"cardID,computed"`
 	Created          types.String                                                      `tfsdk:"created" json:"created,computed"`
+	Price            types.Int64                                                       `tfsdk:"price" json:"price,computed"`
 	ProductVariantID types.String                                                      `tfsdk:"product_variant_id" json:"productVariantID,computed"`
 	Quantity         types.Int64                                                       `tfsdk:"quantity" json:"quantity,computed"`
 	Next             types.String                                                      `tfsdk:"next" json:"next,computed"`
