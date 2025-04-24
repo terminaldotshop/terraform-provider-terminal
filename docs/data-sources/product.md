@@ -62,6 +62,7 @@ Read-Only:
 
 Read-Only:
 
+- `description` (String) Description of the product variant.
 - `id` (String) Unique object identifier.
 The format and length of IDs may change over time.
 - `name` (String) Name of the product variant.

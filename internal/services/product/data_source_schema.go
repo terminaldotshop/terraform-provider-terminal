@@ -60,6 +60,10 @@ func DataSourceSchema(ctx context.Context) schema.Schema {
 										int64validator.AtLeast(0),
 									},
 								},
+								"description": schema.StringAttribute{
+									Description: "Description of the product variant.",
+									Computed:    true,
+								},
 								"tags": schema.SingleNestedAttribute{
 									Description: "Tags for the product variant.",
 									Computed:    true,
