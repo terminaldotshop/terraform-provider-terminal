@@ -23,15 +23,24 @@ type ProductDataDataSourceModel struct {
 }
 
 type ProductDataVariantsDataSourceModel struct {
-	ID    types.String `tfsdk:"id" json:"id,computed"`
-	Name  types.String `tfsdk:"name" json:"name,computed"`
-	Price types.Int64  `tfsdk:"price" json:"price,computed"`
+	ID    types.String                                                     `tfsdk:"id" json:"id,computed"`
+	Name  types.String                                                     `tfsdk:"name" json:"name,computed"`
+	Price types.Int64                                                      `tfsdk:"price" json:"price,computed"`
+	Tags  customfield.NestedObject[ProductDataVariantsTagsDataSourceModel] `tfsdk:"tags" json:"tags,computed"`
+}
+
+type ProductDataVariantsTagsDataSourceModel struct {
+	App          types.String `tfsdk:"app" json:"app,computed"`
+	MarketEu     types.Bool   `tfsdk:"market_eu" json:"market_eu,computed"`
+	MarketGlobal types.Bool   `tfsdk:"market_global" json:"market_global,computed"`
+	MarketNa     types.Bool   `tfsdk:"market_na" json:"market_na,computed"`
 }
 
 type ProductDataTagsDataSourceModel struct {
-	App      types.String `tfsdk:"app" json:"app,computed"`
-	Color    types.String `tfsdk:"color" json:"color,computed"`
-	Featured types.Bool   `tfsdk:"featured" json:"featured,computed"`
-	MarketEu types.Bool   `tfsdk:"market_eu" json:"market_eu,computed"`
-	MarketNa types.Bool   `tfsdk:"market_na" json:"market_na,computed"`
+	App          types.String `tfsdk:"app" json:"app,computed"`
+	Color        types.String `tfsdk:"color" json:"color,computed"`
+	Featured     types.Bool   `tfsdk:"featured" json:"featured,computed"`
+	MarketEu     types.Bool   `tfsdk:"market_eu" json:"market_eu,computed"`
+	MarketGlobal types.Bool   `tfsdk:"market_global" json:"market_global,computed"`
+	MarketNa     types.Bool   `tfsdk:"market_na" json:"market_na,computed"`
 }

@@ -6,6 +6,7 @@ import (
 	"context"
 
 	"github.com/hashicorp/terraform-plugin-framework-validators/int64validator"
+	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/mapplanmodifier"
@@ -155,8 +156,18 @@ func ResourceSchema(ctx context.Context) schema.Schema {
 								Computed:    true,
 							},
 							"status": schema.StringAttribute{
-								Description: "Current tracking status of the shipment.",
+								Description: "Current tracking status of the shipment.\nAvailable values: \"PRE_TRANSIT\", \"TRANSIT\", \"DELIVERED\", \"RETURNED\", \"FAILURE\", \"UNKNOWN\".",
 								Computed:    true,
+								Validators: []validator.String{
+									stringvalidator.OneOfCaseInsensitive(
+										"PRE_TRANSIT",
+										"TRANSIT",
+										"DELIVERED",
+										"RETURNED",
+										"FAILURE",
+										"UNKNOWN",
+									),
+								},
 							},
 							"status_details": schema.StringAttribute{
 								Description: "Additional details about the tracking status.",

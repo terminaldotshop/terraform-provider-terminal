@@ -60,6 +60,25 @@ func DataSourceSchema(ctx context.Context) schema.Schema {
 										int64validator.AtLeast(0),
 									},
 								},
+								"tags": schema.SingleNestedAttribute{
+									Description: "Tags for the product variant.",
+									Computed:    true,
+									CustomType:  customfield.NewNestedObjectType[ProductDataVariantsTagsDataSourceModel](ctx),
+									Attributes: map[string]schema.Attribute{
+										"app": schema.StringAttribute{
+											Computed: true,
+										},
+										"market_eu": schema.BoolAttribute{
+											Computed: true,
+										},
+										"market_global": schema.BoolAttribute{
+											Computed: true,
+										},
+										"market_na": schema.BoolAttribute{
+											Computed: true,
+										},
+									},
+								},
 							},
 						},
 					},
@@ -89,6 +108,9 @@ func DataSourceSchema(ctx context.Context) schema.Schema {
 								Computed: true,
 							},
 							"market_eu": schema.BoolAttribute{
+								Computed: true,
+							},
+							"market_global": schema.BoolAttribute{
 								Computed: true,
 							},
 							"market_na": schema.BoolAttribute{
