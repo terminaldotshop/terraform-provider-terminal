@@ -98,6 +98,7 @@ Read-Only:
 - `number` (String) Tracking number of the order.
 - `service` (String) Shipping service of the order.
 - `status` (String) Current tracking status of the shipment.
+Available values: "PRE_TRANSIT", "TRANSIT", "DELIVERED", "RETURNED", "FAILURE", "UNKNOWN".
 - `status_details` (String) Additional details about the tracking status.
 - `status_updated_at` (String) When the tracking status was last updated.
 - `url` (String) Tracking URL of the order.

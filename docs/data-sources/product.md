@@ -53,6 +53,7 @@ Read-Only:
 - `color` (String)
 - `featured` (Boolean)
 - `market_eu` (Boolean)
+- `market_global` (Boolean)
 - `market_na` (Boolean)
 
 
@@ -65,3 +66,14 @@ Read-Only:
 The format and length of IDs may change over time.
 - `name` (String) Name of the product variant.
 - `price` (Number) Price of the product variant in cents (USD).
+- `tags` (Attributes) Tags for the product variant. (see [below for nested schema](#nestedatt--data--variants--tags))
+
+<a id="nestedatt--data--variants--tags"></a>
+### Nested Schema for `data.variants.tags`
+
+Read-Only:
+
+- `app` (String)
+- `market_eu` (Boolean)
+- `market_global` (Boolean)
+- `market_na` (Boolean)
