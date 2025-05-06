@@ -65,7 +65,7 @@ func DataSourceSchema(ctx context.Context) schema.Schema {
 						CustomType:  customfield.NewNestedObjectType[SubscriptionDataScheduleDataSourceModel](ctx),
 						Attributes: map[string]schema.Attribute{
 							"type": schema.StringAttribute{
-								Description: `Available values: "fixed".`,
+								Description: `Available values: "fixed", "weekly".`,
 								Computed:    true,
 								Validators: []validator.String{
 									stringvalidator.OneOfCaseInsensitive("fixed", "weekly"),
