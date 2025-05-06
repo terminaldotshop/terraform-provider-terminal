@@ -61,9 +61,7 @@ func ResourceSchema(ctx context.Context) schema.Schema {
 			},
 			"schedule": schema.SingleNestedAttribute{
 				Description: "Schedule of the subscription.",
-				Computed:    true,
 				Optional:    true,
-				CustomType:  customfield.NewNestedObjectType[SubscriptionScheduleModel](ctx),
 				Attributes: map[string]schema.Attribute{
 					"type": schema.StringAttribute{
 						Description: `Available values: "fixed".`,
