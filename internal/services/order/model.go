@@ -10,9 +10,9 @@ import (
 
 type OrderModel struct {
 	ID        types.String                             `tfsdk:"id" path:"id,optional"`
-	AddressID types.String                             `tfsdk:"address_id" json:"addressID,required"`
-	CardID    types.String                             `tfsdk:"card_id" json:"cardID,required"`
-	Variants  *map[string]types.Int64                  `tfsdk:"variants" json:"variants,required"`
+	AddressID types.String                             `tfsdk:"address_id" json:"addressID,required,no_refresh"`
+	CardID    types.String                             `tfsdk:"card_id" json:"cardID,required,no_refresh"`
+	Variants  *map[string]types.Int64                  `tfsdk:"variants" json:"variants,required,no_refresh"`
 	Data      customfield.NestedObject[OrderDataModel] `tfsdk:"data" json:"data,computed"`
 }
 

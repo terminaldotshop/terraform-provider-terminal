@@ -10,14 +10,14 @@ import (
 
 type SubscriptionModel struct {
 	ID               types.String                                    `tfsdk:"id" json:"id,required"`
-	Created          types.String                                    `tfsdk:"created" json:"created,required"`
-	Price            types.Int64                                     `tfsdk:"price" json:"price,required"`
-	ProductVariantID types.String                                    `tfsdk:"product_variant_id" json:"productVariantID,required"`
-	Quantity         types.Int64                                     `tfsdk:"quantity" json:"quantity,required"`
-	Next             types.String                                    `tfsdk:"next" json:"next,optional"`
-	AddressID        types.String                                    `tfsdk:"address_id" json:"addressID,required"`
-	CardID           types.String                                    `tfsdk:"card_id" json:"cardID,required"`
-	Schedule         *SubscriptionScheduleModel                      `tfsdk:"schedule" json:"schedule,optional"`
+	Created          types.String                                    `tfsdk:"created" json:"created,required,no_refresh"`
+	Price            types.Int64                                     `tfsdk:"price" json:"price,required,no_refresh"`
+	ProductVariantID types.String                                    `tfsdk:"product_variant_id" json:"productVariantID,required,no_refresh"`
+	Quantity         types.Int64                                     `tfsdk:"quantity" json:"quantity,required,no_refresh"`
+	Next             types.String                                    `tfsdk:"next" json:"next,optional,no_refresh"`
+	AddressID        types.String                                    `tfsdk:"address_id" json:"addressID,required,no_refresh"`
+	CardID           types.String                                    `tfsdk:"card_id" json:"cardID,required,no_refresh"`
+	Schedule         *SubscriptionScheduleModel                      `tfsdk:"schedule" json:"schedule,optional,no_refresh"`
 	Data             customfield.NestedObject[SubscriptionDataModel] `tfsdk:"data" json:"data,computed"`
 }
 

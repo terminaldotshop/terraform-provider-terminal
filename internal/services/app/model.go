@@ -10,8 +10,8 @@ import (
 
 type AppModel struct {
 	ID          types.String                           `tfsdk:"id" path:"id,optional"`
-	Name        types.String                           `tfsdk:"name" json:"name,required"`
-	RedirectUri types.String                           `tfsdk:"redirect_uri" json:"redirectURI,required"`
+	Name        types.String                           `tfsdk:"name" json:"name,required,no_refresh"`
+	RedirectUri types.String                           `tfsdk:"redirect_uri" json:"redirectURI,required,no_refresh"`
 	Data        customfield.NestedObject[AppDataModel] `tfsdk:"data" json:"data,computed"`
 }
 
