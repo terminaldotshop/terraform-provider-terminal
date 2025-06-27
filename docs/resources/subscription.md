@@ -57,7 +57,7 @@ The format and length of IDs may change over time.
 
 Required:
 
-- `type` (String) Available values: "fixed".
+- `type` (String) Available values: "fixed", "weekly".
 
 Optional:
 
@@ -86,7 +86,7 @@ The format and length of IDs may change over time.
 Read-Only:
 
 - `interval` (Number)
-- `type` (String) Available values: "fixed".
+- `type` (String) Available values: "fixed", "weekly".
 
 ## Import
 

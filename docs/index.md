@@ -25,5 +25,7 @@ provider "terminal" {
 ### Optional
 
 - `app_id` (String)
-- `base_url` (String) Set the base url that the provider connects to. This can be used for testing in other environments.
+- `base_url` (String) Set the base url that the provider connects to.
 - `bearer_token` (String)
+- `environment` (String) Set the current environment. An environment specifies which base URL to use by default.
+Available values: "production", "dev".
