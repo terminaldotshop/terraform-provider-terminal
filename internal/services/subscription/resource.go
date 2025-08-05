@@ -28,7 +28,7 @@ func NewResource() resource.Resource {
 
 // SubscriptionResource defines the resource implementation.
 type SubscriptionResource struct {
-	client *terminal.Client
+	client *githubcomterminaldotshopterminalsdkgo.Client
 }
 
 func (r *SubscriptionResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
@@ -40,12 +40,12 @@ func (r *SubscriptionResource) Configure(ctx context.Context, req resource.Confi
 		return
 	}
 
-	client, ok := req.ProviderData.(*terminal.Client)
+	client, ok := req.ProviderData.(*githubcomterminaldotshopterminalsdkgo.Client)
 
 	if !ok {
 		resp.Diagnostics.AddError(
 			"unexpected resource configure type",
-			fmt.Sprintf("Expected *terminal.Client, got: %T. Please report this issue to the provider developers.", req.ProviderData),
+			fmt.Sprintf("Expected *githubcomterminaldotshopterminalsdkgo.Client, got: %T. Please report this issue to the provider developers.", req.ProviderData),
 		)
 
 		return
@@ -71,7 +71,7 @@ func (r *SubscriptionResource) Create(ctx context.Context, req resource.CreateRe
 	res := new(http.Response)
 	_, err = r.client.Subscription.New(
 		ctx,
-		terminal.SubscriptionNewParams{},
+		githubcomterminaldotshopterminalsdkgo.SubscriptionNewParams{},
 		option.WithRequestBody("application/json", dataBytes),
 		option.WithResponseBodyInto(&res),
 		option.WithMiddleware(logging.Middleware(ctx)),
@@ -116,7 +116,7 @@ func (r *SubscriptionResource) Update(ctx context.Context, req resource.UpdateRe
 	_, err = r.client.Subscription.Update(
 		ctx,
 		data.ID.ValueString(),
-		terminal.SubscriptionUpdateParams{},
+		githubcomterminaldotshopterminalsdkgo.SubscriptionUpdateParams{},
 		option.WithRequestBody("application/json", dataBytes),
 		option.WithResponseBodyInto(&res),
 		option.WithMiddleware(logging.Middleware(ctx)),
