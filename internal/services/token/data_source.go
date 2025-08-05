@@ -16,7 +16,7 @@ import (
 )
 
 type TokenDataSource struct {
-	client *terminal.Client
+	client *githubcomterminaldotshopterminalsdkgo.Client
 }
 
 var _ datasource.DataSourceWithConfigure = (*TokenDataSource)(nil)
@@ -34,12 +34,12 @@ func (d *TokenDataSource) Configure(ctx context.Context, req datasource.Configur
 		return
 	}
 
-	client, ok := req.ProviderData.(*terminal.Client)
+	client, ok := req.ProviderData.(*githubcomterminaldotshopterminalsdkgo.Client)
 
 	if !ok {
 		resp.Diagnostics.AddError(
 			"unexpected resource configure type",
-			fmt.Sprintf("Expected *terminal.Client, got: %T. Please report this issue to the provider developers.", req.ProviderData),
+			fmt.Sprintf("Expected *githubcomterminaldotshopterminalsdkgo.Client, got: %T. Please report this issue to the provider developers.", req.ProviderData),
 		)
 
 		return

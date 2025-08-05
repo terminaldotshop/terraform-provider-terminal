@@ -136,7 +136,7 @@ func (p *TerminalProvider) Configure(ctx context.Context, req provider.Configure
 		opts = append(opts, option.WithAppID(data.AppID.ValueString()))
 	}
 
-	client := terminal.NewClient(
+	client := githubcomterminaldotshopterminalsdkgo.NewClient(
 		opts...,
 	)
 

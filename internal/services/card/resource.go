@@ -28,7 +28,7 @@ func NewResource() resource.Resource {
 
 // CardResource defines the resource implementation.
 type CardResource struct {
-	client *terminal.Client
+	client *githubcomterminaldotshopterminalsdkgo.Client
 }
 
 func (r *CardResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
@@ -40,12 +40,12 @@ func (r *CardResource) Configure(ctx context.Context, req resource.ConfigureRequ
 		return
 	}
 
-	client, ok := req.ProviderData.(*terminal.Client)
+	client, ok := req.ProviderData.(*githubcomterminaldotshopterminalsdkgo.Client)
 
 	if !ok {
 		resp.Diagnostics.AddError(
 			"unexpected resource configure type",
-			fmt.Sprintf("Expected *terminal.Client, got: %T. Please report this issue to the provider developers.", req.ProviderData),
+			fmt.Sprintf("Expected *githubcomterminaldotshopterminalsdkgo.Client, got: %T. Please report this issue to the provider developers.", req.ProviderData),
 		)
 
 		return
@@ -71,7 +71,7 @@ func (r *CardResource) Create(ctx context.Context, req resource.CreateRequest, r
 	res := new(http.Response)
 	_, err = r.client.Card.New(
 		ctx,
-		terminal.CardNewParams{},
+		githubcomterminaldotshopterminalsdkgo.CardNewParams{},
 		option.WithRequestBody("application/json", dataBytes),
 		option.WithResponseBodyInto(&res),
 		option.WithMiddleware(logging.Middleware(ctx)),
