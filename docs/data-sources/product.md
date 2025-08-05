@@ -42,6 +42,7 @@ The format and length of IDs may change over time.
 - `subscription` (String) Whether the product must be or can be subscribed to.
 Available values: "allowed", "required".
 - `tags` (Attributes) Tags for the product. (see [below for nested schema](#nestedatt--data--tags))
+- `time_hidden` (String) Timestamp when the product was hidden from public view.
 - `variants` (Attributes List) List of variants of the product. (see [below for nested schema](#nestedatt--data--variants))
 
 <a id="nestedatt--data--tags"></a>
@@ -62,7 +63,6 @@ Read-Only:
 
 Read-Only:
 
-- `description` (String) Description of the product variant.
 - `id` (String) Unique object identifier.
 The format and length of IDs may change over time.
 - `name` (String) Name of the product variant.

@@ -20,14 +20,14 @@ type ProductDataDataSourceModel struct {
 	Order        types.Int64                                                      `tfsdk:"order" json:"order,computed"`
 	Subscription types.String                                                     `tfsdk:"subscription" json:"subscription,computed"`
 	Tags         customfield.NestedObject[ProductDataTagsDataSourceModel]         `tfsdk:"tags" json:"tags,computed"`
+	TimeHidden   types.String                                                     `tfsdk:"time_hidden" json:"timeHidden,computed"`
 }
 
 type ProductDataVariantsDataSourceModel struct {
-	ID          types.String                                                     `tfsdk:"id" json:"id,computed"`
-	Name        types.String                                                     `tfsdk:"name" json:"name,computed"`
-	Price       types.Int64                                                      `tfsdk:"price" json:"price,computed"`
-	Description types.String                                                     `tfsdk:"description" json:"description,computed"`
-	Tags        customfield.NestedObject[ProductDataVariantsTagsDataSourceModel] `tfsdk:"tags" json:"tags,computed"`
+	ID    types.String                                                     `tfsdk:"id" json:"id,computed"`
+	Name  types.String                                                     `tfsdk:"name" json:"name,computed"`
+	Price types.Int64                                                      `tfsdk:"price" json:"price,computed"`
+	Tags  customfield.NestedObject[ProductDataVariantsTagsDataSourceModel] `tfsdk:"tags" json:"tags,computed"`
 }
 
 type ProductDataVariantsTagsDataSourceModel struct {

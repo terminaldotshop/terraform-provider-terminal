@@ -60,10 +60,6 @@ func DataSourceSchema(ctx context.Context) schema.Schema {
 										int64validator.AtLeast(0),
 									},
 								},
-								"description": schema.StringAttribute{
-									Description: "Description of the product variant.",
-									Computed:    true,
-								},
 								"tags": schema.SingleNestedAttribute{
 									Description: "Tags for the product variant.",
 									Computed:    true,
@@ -121,6 +117,10 @@ func DataSourceSchema(ctx context.Context) schema.Schema {
 								Computed: true,
 							},
 						},
+					},
+					"time_hidden": schema.StringAttribute{
+						Description: "Timestamp when the product was hidden from public view.",
+						Computed:    true,
 					},
 				},
 			},
