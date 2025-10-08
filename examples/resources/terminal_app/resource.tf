@@ -1,4 +1,4 @@
 resource "terminal_app" "example_app" {
-  name = "name"
-  redirect_uri = "redirectURI"
+  name = "Example App"
+  redirect_uri = "https://example.com/callback"
 }
