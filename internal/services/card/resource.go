@@ -155,7 +155,7 @@ func (r *CardResource) Delete(ctx context.Context, req resource.DeleteRequest, r
 }
 
 func (r *CardResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
-	var data *CardModel = new(CardModel)
+	var data = new(CardModel)
 
 	path := ""
 	diags := importpath.ParseImportID(

@@ -193,7 +193,7 @@ func (r *SubscriptionResource) Delete(ctx context.Context, req resource.DeleteRe
 }
 
 func (r *SubscriptionResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
-	var data *SubscriptionModel = new(SubscriptionModel)
+	var data = new(SubscriptionModel)
 
 	path := ""
 	diags := importpath.ParseImportID(
