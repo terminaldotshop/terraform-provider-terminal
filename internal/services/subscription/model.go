@@ -15,8 +15,8 @@ type SubscriptionModel struct {
 	ProductVariantID types.String                                    `tfsdk:"product_variant_id" json:"productVariantID,required,no_refresh"`
 	Quantity         types.Int64                                     `tfsdk:"quantity" json:"quantity,required,no_refresh"`
 	Next             types.String                                    `tfsdk:"next" json:"next,optional,no_refresh"`
-	AddressID        types.String                                    `tfsdk:"address_id" json:"addressID,required,no_refresh"`
-	CardID           types.String                                    `tfsdk:"card_id" json:"cardID,required,no_refresh"`
+	AddressID        types.String                                    `tfsdk:"address_id" json:"addressID,optional,no_refresh"`
+	CardID           types.String                                    `tfsdk:"card_id" json:"cardID,optional,no_refresh"`
 	Schedule         *SubscriptionScheduleModel                      `tfsdk:"schedule" json:"schedule,optional,no_refresh"`
 	Data             customfield.NestedObject[SubscriptionDataModel] `tfsdk:"data" json:"data,computed"`
 }
