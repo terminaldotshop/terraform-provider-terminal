@@ -34,8 +34,6 @@ resource "terminal_subscription" "example_subscription" {
 
 ### Required
 
-- `address_id` (String) ID of the shipping address used for the subscription.
-- `card_id` (String) ID of the card used for the subscription.
 - `created` (String) Date the subscription was created.
 - `id` (String) Unique object identifier.
 The format and length of IDs may change over time.
@@ -45,8 +43,10 @@ The format and length of IDs may change over time.
 
 ### Optional
 
+- `address_id` (String) New shipping address ID for the subscription.
+- `card_id` (String) New payment method ID for the subscription.
 - `next` (String) Next shipment and billing date for the subscription.
-- `schedule` (Attributes) Schedule of the subscription. (see [below for nested schema](#nestedatt--schedule))
+- `schedule` (Attributes) New schedule for the subscription. (see [below for nested schema](#nestedatt--schedule))
 
 ### Read-Only
 
