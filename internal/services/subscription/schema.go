@@ -52,15 +52,15 @@ func ResourceSchema(ctx context.Context) schema.Schema {
 				PlanModifiers: []planmodifier.String{stringplanmodifier.RequiresReplace()},
 			},
 			"address_id": schema.StringAttribute{
-				Description: "New shipping address ID for the subscription.",
-				Optional:    true,
+				Description: "ID of the shipping address used for the subscription.",
+				Required:    true,
 			},
 			"card_id": schema.StringAttribute{
-				Description: "New payment method ID for the subscription.",
-				Optional:    true,
+				Description: "ID of the card used for the subscription.",
+				Required:    true,
 			},
 			"schedule": schema.SingleNestedAttribute{
-				Description: "New schedule for the subscription.",
+				Description: "Schedule of the subscription.",
 				Optional:    true,
 				Attributes: map[string]schema.Attribute{
 					"type": schema.StringAttribute{
