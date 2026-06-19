@@ -4,14 +4,14 @@ package app
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/stainless-sdks/terminal-terraform/internal/apijson"
-	"github.com/stainless-sdks/terminal-terraform/internal/customfield"
+	"github.com/terminaldotshop/terraform-provider-terminal/internal/apijson"
+	"github.com/terminaldotshop/terraform-provider-terminal/internal/customfield"
 )
 
 type AppModel struct {
-	ID          types.String                           `tfsdk:"id" json:"id,required"`
-	Name        types.String                           `tfsdk:"name" json:"name,required"`
-	RedirectUri types.String                           `tfsdk:"redirect_uri" json:"redirectURI,required"`
+	ID          types.String                           `tfsdk:"id" path:"id,optional"`
+	Name        types.String                           `tfsdk:"name" json:"name,required,no_refresh"`
+	RedirectUri types.String                           `tfsdk:"redirect_uri" json:"redirectURI,required,no_refresh"`
 	Data        customfield.NestedObject[AppDataModel] `tfsdk:"data" json:"data,computed"`
 }
 
@@ -27,4 +27,5 @@ type AppDataModel struct {
 	ID          types.String `tfsdk:"id" json:"id,computed"`
 	Name        types.String `tfsdk:"name" json:"name,computed"`
 	RedirectUri types.String `tfsdk:"redirect_uri" json:"redirectURI,computed"`
+	Secret      types.String `tfsdk:"secret" json:"secret,computed"`
 }

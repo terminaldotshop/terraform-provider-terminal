@@ -6,10 +6,11 @@ import (
 	"context"
 
 	"github.com/hashicorp/terraform-plugin-framework-validators/int64validator"
+	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
-	"github.com/stainless-sdks/terminal-terraform/internal/customfield"
+	"github.com/terminaldotshop/terraform-provider-terminal/internal/customfield"
 )
 
 var _ datasource.DataSourceWithConfigValidators = (*OrderDataSource)(nil)
@@ -44,6 +45,10 @@ func DataSourceSchema(ctx context.Context) schema.Schema {
 								Computed:    true,
 							},
 						},
+					},
+					"created": schema.StringAttribute{
+						Description: "Date the order was created.",
+						Computed:    true,
 					},
 					"items": schema.ListNestedAttribute{
 						Description: "Items in the order.",
@@ -127,6 +132,28 @@ func DataSourceSchema(ctx context.Context) schema.Schema {
 							},
 							"service": schema.StringAttribute{
 								Description: "Shipping service of the order.",
+								Computed:    true,
+							},
+							"status": schema.StringAttribute{
+								Description: "Current tracking status of the shipment.\nAvailable values: \"PRE_TRANSIT\", \"TRANSIT\", \"DELIVERED\", \"RETURNED\", \"FAILURE\", \"UNKNOWN\".",
+								Computed:    true,
+								Validators: []validator.String{
+									stringvalidator.OneOfCaseInsensitive(
+										"PRE_TRANSIT",
+										"TRANSIT",
+										"DELIVERED",
+										"RETURNED",
+										"FAILURE",
+										"UNKNOWN",
+									),
+								},
+							},
+							"status_details": schema.StringAttribute{
+								Description: "Additional details about the tracking status.",
+								Computed:    true,
+							},
+							"status_updated_at": schema.StringAttribute{
+								Description: "When the tracking status was last updated.",
 								Computed:    true,
 							},
 							"url": schema.StringAttribute{

@@ -1,9 +1,9 @@
 # Terminal Terraform Provider
 
-The [Terminal Terraform provider](https://registry.terraform.io/providers/stainless-sdks/terminal/latest/docs) provides convenient access to
-[the Terminal REST API](https://terminal.shop/docs) from Terraform.
+The [Terminal Terraform provider](https://registry.terraform.io/providers/terminaldotshop/terminal/latest/docs) provides convenient access to
+the [Terminal REST API](https://terminal.shop/docs) from Terraform.
 
-It is generated with [Stainless](https://www.stainlessapi.com/).
+It is generated with [Stainless](https://www.stainless.com/).
 
 ## Requirements
 
@@ -14,13 +14,15 @@ on Hashicorp's website.
 
 Add the following to your `main.tf` file:
 
+<!-- x-release-please-start-version -->
+
 ```hcl
 # Declare the provider and version
 terraform {
   required_providers {
     terminal = {
-      source  = "stainless-sdks/terminal"
-      version = "~> 0.0.1-alpha.0"
+      source  = "terminaldotshop/terminal"
+      version = "~> 0.1.0-alpha.1"
     }
   }
 }
@@ -28,6 +30,7 @@ terraform {
 # Initialize the provider
 provider "terminal" {
   bearer_token = "My Bearer Token" # or set TERMINAL_BEARER_TOKEN env variable
+  app_id = "My App ID"
 }
 
 # Configure a resource
@@ -37,10 +40,12 @@ resource "terminal_profile" "example_profile" {
 }
 ```
 
+<!-- x-release-please-end -->
+
 Initialize your project by running `terraform init` in the directory.
 
 Additional examples can be found in the [./examples](./examples) folder within this repository, and you can
-refer to the full documentation on [the Terraform Registry](https://registry.terraform.io/providers/stainless-sdks/terminal/latest/docs).
+refer to the full documentation on [the Terraform Registry](https://registry.terraform.io/providers/terminaldotshop/terminal/latest/docs).
 
 ### Provider Options
 
@@ -50,6 +55,7 @@ If an environment variable is provided, then the option does not need to be set 
 | Property     | Environment variable    | Required | Default value |
 | ------------ | ----------------------- | -------- | ------------- |
 | bearer_token | `TERMINAL_BEARER_TOKEN` | true     | —             |
+| app_id       | -                       | false    | —             |
 
 ## Semantic versioning
 
@@ -60,7 +66,7 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/stainless-sdks/terminal-terraform/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/terminaldotshop/terraform-provider-terminal/issues) with questions, bugs, or suggestions.
 
 ## Contributing
 

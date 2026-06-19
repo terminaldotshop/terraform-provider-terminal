@@ -9,7 +9,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
-	"github.com/stainless-sdks/terminal-terraform/internal/customfield"
+	"github.com/terminaldotshop/terraform-provider-terminal/internal/customfield"
 )
 
 var _ datasource.DataSourceWithConfigValidators = (*CartDataSource)(nil)
@@ -33,6 +33,10 @@ func DataSourceSchema(ctx context.Context) schema.Schema {
 							},
 							"shipping": schema.Int64Attribute{
 								Description: "Shipping amount of the current user's cart, in cents (USD).",
+								Computed:    true,
+							},
+							"total": schema.Int64Attribute{
+								Description: "Total amount after any discounts, in cents (USD).",
 								Computed:    true,
 							},
 						},

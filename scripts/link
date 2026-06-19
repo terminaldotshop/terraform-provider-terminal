@@ -1,16 +1,17 @@
 #!/usr/bin/env bash
 
-set -e
+set -euo pipefail
 
 cd "$(dirname "$0")/.."
 
-if [[ -n "$1" ]]; then
-  LOCAL_GO="$1"
-  shift
-else
-  LOCAL_GO=../terminal-go
-fi
+# Mark the necessary Go modules as private to avoid Go's proxy
+export GOPRIVATE="${GOPRIVATE:+$GOPRIVATE,}github.com/terminaldotshop/terminal-sdk-go,github.com/stainless-sdks/terminal-go"
 
-echo "==> Linking with local directory"
-go mod tidy -e
-go mod edit -replace github.com/terminaldotshop/terminal-sdk-go="$LOCAL_GO"
+REPLACEMENT="${1:-"../terminal-go"}"
+echo "==> Replacing Go SDK with $REPLACEMENT"
+if [[ -d "$REPLACEMENT" ]] || go list -m "$REPLACEMENT" >/dev/null; then
+    go mod edit -replace github.com/terminaldotshop/terminal-sdk-go="$REPLACEMENT"
+    go mod tidy -e
+else
+    echo "Skipping Go SDK replacement (branch may not exist on Go SDK)"
+fi

@@ -7,7 +7,7 @@ import (
 
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
-	"github.com/stainless-sdks/terminal-terraform/internal/customfield"
+	"github.com/terminaldotshop/terraform-provider-terminal/internal/customfield"
 )
 
 var _ datasource.DataSourceWithConfigValidators = (*TokenDataSource)(nil)
@@ -32,16 +32,9 @@ func DataSourceSchema(ctx context.Context) schema.Schema {
 						Description: "Personal access token (obfuscated).",
 						Computed:    true,
 					},
-					"time": schema.SingleNestedAttribute{
-						Description: "Relevant timestamps for the token.",
+					"created": schema.StringAttribute{
+						Description: "The created time for the token.",
 						Computed:    true,
-						CustomType:  customfield.NewNestedObjectType[TokenDataTimeDataSourceModel](ctx),
-						Attributes: map[string]schema.Attribute{
-							"created": schema.StringAttribute{
-								Description: "The created time for the token.",
-								Computed:    true,
-							},
-						},
 					},
 				},
 			},
