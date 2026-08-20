@@ -9,10 +9,10 @@ import (
 	"net/http"
 
 	"github.com/hashicorp/terraform-plugin-framework/resource"
-	"github.com/stainless-sdks/terminal-terraform/internal/apijson"
-	"github.com/stainless-sdks/terminal-terraform/internal/logging"
 	"github.com/terminaldotshop/terminal-sdk-go"
 	"github.com/terminaldotshop/terminal-sdk-go/option"
+	"github.com/terminaldotshop/terraform-provider-terminal/internal/apijson"
+	"github.com/terminaldotshop/terraform-provider-terminal/internal/logging"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
@@ -25,7 +25,7 @@ func NewResource() resource.Resource {
 
 // AddressResource defines the resource implementation.
 type AddressResource struct {
-	client *terminal.Client
+	client *githubcomterminaldotshopterminalsdkgo.Client
 }
 
 func (r *AddressResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
@@ -37,12 +37,12 @@ func (r *AddressResource) Configure(ctx context.Context, req resource.ConfigureR
 		return
 	}
 
-	client, ok := req.ProviderData.(*terminal.Client)
+	client, ok := req.ProviderData.(*githubcomterminaldotshopterminalsdkgo.Client)
 
 	if !ok {
 		resp.Diagnostics.AddError(
 			"unexpected resource configure type",
-			fmt.Sprintf("Expected *terminal.Client, got: %T. Please report this issue to the provider developers.", req.ProviderData),
+			fmt.Sprintf("Expected *githubcomterminaldotshopterminalsdkgo.Client, got: %T. Please report this issue to the provider developers.", req.ProviderData),
 		)
 
 		return
@@ -68,7 +68,7 @@ func (r *AddressResource) Create(ctx context.Context, req resource.CreateRequest
 	res := new(http.Response)
 	_, err = r.client.Address.New(
 		ctx,
-		terminal.AddressNewParams{},
+		githubcomterminaldotshopterminalsdkgo.AddressNewParams{},
 		option.WithRequestBody("application/json", dataBytes),
 		option.WithResponseBodyInto(&res),
 		option.WithMiddleware(logging.Middleware(ctx)),
@@ -88,51 +88,42 @@ func (r *AddressResource) Create(ctx context.Context, req resource.CreateRequest
 }
 
 func (r *AddressResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
+	// Update is not supported for this resource
+}
+
+func (r *AddressResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
 	var data *AddressModel
 
-	resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
+	resp.Diagnostics.Append(req.State.Get(ctx, &data)...)
 
 	if resp.Diagnostics.HasError() {
 		return
 	}
 
-	var state *AddressModel
-
-	resp.Diagnostics.Append(req.State.Get(ctx, &state)...)
-
-	if resp.Diagnostics.HasError() {
-		return
-	}
-
-	dataBytes, err := data.MarshalJSONForUpdate(*state)
-	if err != nil {
-		resp.Diagnostics.AddError("failed to serialize http request", err.Error())
-		return
-	}
 	res := new(http.Response)
-	_, err = r.client.Address.New(
+	_, err := r.client.Address.Get(
 		ctx,
-		terminal.AddressNewParams{},
-		option.WithRequestBody("application/json", dataBytes),
+		data.ID.ValueString(),
 		option.WithResponseBodyInto(&res),
 		option.WithMiddleware(logging.Middleware(ctx)),
 	)
+	if res != nil && res.StatusCode == 404 {
+		resp.Diagnostics.AddWarning("Resource not found", "The resource was not found on the server and will be removed from state.")
+		resp.State.RemoveResource(ctx)
+		return
+	}
 	if err != nil {
 		resp.Diagnostics.AddError("failed to make http request", err.Error())
 		return
 	}
 	bytes, _ := io.ReadAll(res.Body)
-	err = apijson.UnmarshalComputed(bytes, &data)
+	err = apijson.Unmarshal(bytes, &data)
 	if err != nil {
 		resp.Diagnostics.AddError("failed to deserialize http request", err.Error())
 		return
 	}
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
-}
-
-func (r *AddressResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
-
 }
 
 func (r *AddressResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {

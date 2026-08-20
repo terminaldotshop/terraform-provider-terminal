@@ -6,8 +6,8 @@ import (
 	"context"
 	"testing"
 
-	"github.com/stainless-sdks/terminal-terraform/internal/services/cart"
-	"github.com/stainless-sdks/terminal-terraform/internal/test_helpers"
+	"github.com/terminaldotshop/terraform-provider-terminal/internal/services/cart"
+	"github.com/terminaldotshop/terraform-provider-terminal/internal/test_helpers"
 )
 
 func TestCartDataSourceModelSchemaParity(t *testing.T) {

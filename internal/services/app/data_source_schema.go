@@ -7,7 +7,7 @@ import (
 
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
-	"github.com/stainless-sdks/terminal-terraform/internal/customfield"
+	"github.com/terminaldotshop/terraform-provider-terminal/internal/customfield"
 )
 
 var _ datasource.DataSourceWithConfigValidators = (*AppDataSource)(nil)
@@ -34,6 +34,10 @@ func DataSourceSchema(ctx context.Context) schema.Schema {
 					},
 					"redirect_uri": schema.StringAttribute{
 						Description: "Redirect URI of the app.",
+						Computed:    true,
+					},
+					"secret": schema.StringAttribute{
+						Description: "OAuth 2.0 client secret of the app (obfuscated).",
 						Computed:    true,
 					},
 				},

@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/stainless-sdks/terminal-terraform/internal/importpath"
+	"github.com/terminaldotshop/terraform-provider-terminal/internal/importpath"
 )
 
 func TestParseID(t *testing.T) {

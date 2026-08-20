@@ -9,18 +9,15 @@ import (
 	"net/http"
 
 	"github.com/hashicorp/terraform-plugin-framework/resource"
-	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/stainless-sdks/terminal-terraform/internal/apijson"
-	"github.com/stainless-sdks/terminal-terraform/internal/importpath"
-	"github.com/stainless-sdks/terminal-terraform/internal/logging"
 	"github.com/terminaldotshop/terminal-sdk-go"
 	"github.com/terminaldotshop/terminal-sdk-go/option"
+	"github.com/terminaldotshop/terraform-provider-terminal/internal/apijson"
+	"github.com/terminaldotshop/terraform-provider-terminal/internal/logging"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var _ resource.ResourceWithConfigure = (*AppResource)(nil)
 var _ resource.ResourceWithModifyPlan = (*AppResource)(nil)
-var _ resource.ResourceWithImportState = (*AppResource)(nil)
 
 func NewResource() resource.Resource {
 	return &AppResource{}
@@ -28,7 +25,7 @@ func NewResource() resource.Resource {
 
 // AppResource defines the resource implementation.
 type AppResource struct {
-	client *terminal.Client
+	client *githubcomterminaldotshopterminalsdkgo.Client
 }
 
 func (r *AppResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
@@ -40,12 +37,12 @@ func (r *AppResource) Configure(ctx context.Context, req resource.ConfigureReque
 		return
 	}
 
-	client, ok := req.ProviderData.(*terminal.Client)
+	client, ok := req.ProviderData.(*githubcomterminaldotshopterminalsdkgo.Client)
 
 	if !ok {
 		resp.Diagnostics.AddError(
 			"unexpected resource configure type",
-			fmt.Sprintf("Expected *terminal.Client, got: %T. Please report this issue to the provider developers.", req.ProviderData),
+			fmt.Sprintf("Expected *githubcomterminaldotshopterminalsdkgo.Client, got: %T. Please report this issue to the provider developers.", req.ProviderData),
 		)
 
 		return
@@ -71,7 +68,7 @@ func (r *AppResource) Create(ctx context.Context, req resource.CreateRequest, re
 	res := new(http.Response)
 	_, err = r.client.App.New(
 		ctx,
-		terminal.AppNewParams{},
+		githubcomterminaldotshopterminalsdkgo.AppNewParams{},
 		option.WithRequestBody("application/json", dataBytes),
 		option.WithResponseBodyInto(&res),
 		option.WithMiddleware(logging.Middleware(ctx)),
@@ -91,47 +88,7 @@ func (r *AppResource) Create(ctx context.Context, req resource.CreateRequest, re
 }
 
 func (r *AppResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
-	var data *AppModel
-
-	resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
-
-	if resp.Diagnostics.HasError() {
-		return
-	}
-
-	var state *AppModel
-
-	resp.Diagnostics.Append(req.State.Get(ctx, &state)...)
-
-	if resp.Diagnostics.HasError() {
-		return
-	}
-
-	dataBytes, err := data.MarshalJSONForUpdate(*state)
-	if err != nil {
-		resp.Diagnostics.AddError("failed to serialize http request", err.Error())
-		return
-	}
-	res := new(http.Response)
-	_, err = r.client.App.New(
-		ctx,
-		terminal.AppNewParams{},
-		option.WithRequestBody("application/json", dataBytes),
-		option.WithResponseBodyInto(&res),
-		option.WithMiddleware(logging.Middleware(ctx)),
-	)
-	if err != nil {
-		resp.Diagnostics.AddError("failed to make http request", err.Error())
-		return
-	}
-	bytes, _ := io.ReadAll(res.Body)
-	err = apijson.UnmarshalComputed(bytes, &data)
-	if err != nil {
-		resp.Diagnostics.AddError("failed to deserialize http request", err.Error())
-		return
-	}
-
-	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
+	// Update is not supported for this resource
 }
 
 func (r *AppResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
@@ -160,7 +117,7 @@ func (r *AppResource) Read(ctx context.Context, req resource.ReadRequest, resp *
 		return
 	}
 	bytes, _ := io.ReadAll(res.Body)
-	err = apijson.UnmarshalComputed(bytes, &data)
+	err = apijson.Unmarshal(bytes, &data)
 	if err != nil {
 		resp.Diagnostics.AddError("failed to deserialize http request", err.Error())
 		return
@@ -185,43 +142,6 @@ func (r *AppResource) Delete(ctx context.Context, req resource.DeleteRequest, re
 	)
 	if err != nil {
 		resp.Diagnostics.AddError("failed to make http request", err.Error())
-		return
-	}
-
-	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
-}
-
-func (r *AppResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
-	var data *AppModel = new(AppModel)
-
-	path := ""
-	diags := importpath.ParseImportID(
-		req.ID,
-		"<id>",
-		&path,
-	)
-	resp.Diagnostics.Append(diags...)
-	if resp.Diagnostics.HasError() {
-		return
-	}
-
-	data.ID = types.StringValue(path)
-
-	res := new(http.Response)
-	_, err := r.client.App.Get(
-		ctx,
-		path,
-		option.WithResponseBodyInto(&res),
-		option.WithMiddleware(logging.Middleware(ctx)),
-	)
-	if err != nil {
-		resp.Diagnostics.AddError("failed to make http request", err.Error())
-		return
-	}
-	bytes, _ := io.ReadAll(res.Body)
-	err = apijson.Unmarshal(bytes, &data)
-	if err != nil {
-		resp.Diagnostics.AddError("failed to deserialize http request", err.Error())
 		return
 	}
 

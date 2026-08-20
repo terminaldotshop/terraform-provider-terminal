@@ -9,10 +9,10 @@ import (
 	"net/http"
 
 	"github.com/hashicorp/terraform-plugin-framework/resource"
-	"github.com/stainless-sdks/terminal-terraform/internal/apijson"
-	"github.com/stainless-sdks/terminal-terraform/internal/logging"
 	"github.com/terminaldotshop/terminal-sdk-go"
 	"github.com/terminaldotshop/terminal-sdk-go/option"
+	"github.com/terminaldotshop/terraform-provider-terminal/internal/apijson"
+	"github.com/terminaldotshop/terraform-provider-terminal/internal/logging"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.
@@ -25,7 +25,7 @@ func NewResource() resource.Resource {
 
 // EmailResource defines the resource implementation.
 type EmailResource struct {
-	client *terminal.Client
+	client *githubcomterminaldotshopterminalsdkgo.Client
 }
 
 func (r *EmailResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
@@ -37,12 +37,12 @@ func (r *EmailResource) Configure(ctx context.Context, req resource.ConfigureReq
 		return
 	}
 
-	client, ok := req.ProviderData.(*terminal.Client)
+	client, ok := req.ProviderData.(*githubcomterminaldotshopterminalsdkgo.Client)
 
 	if !ok {
 		resp.Diagnostics.AddError(
 			"unexpected resource configure type",
-			fmt.Sprintf("Expected *terminal.Client, got: %T. Please report this issue to the provider developers.", req.ProviderData),
+			fmt.Sprintf("Expected *githubcomterminaldotshopterminalsdkgo.Client, got: %T. Please report this issue to the provider developers.", req.ProviderData),
 		)
 
 		return
@@ -68,7 +68,7 @@ func (r *EmailResource) Create(ctx context.Context, req resource.CreateRequest, 
 	res := new(http.Response)
 	_, err = r.client.Email.New(
 		ctx,
-		terminal.EmailNewParams{},
+		githubcomterminaldotshopterminalsdkgo.EmailNewParams{},
 		option.WithRequestBody("application/json", dataBytes),
 		option.WithResponseBodyInto(&res),
 		option.WithMiddleware(logging.Middleware(ctx)),
@@ -88,47 +88,7 @@ func (r *EmailResource) Create(ctx context.Context, req resource.CreateRequest, 
 }
 
 func (r *EmailResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
-	var data *EmailModel
-
-	resp.Diagnostics.Append(req.Plan.Get(ctx, &data)...)
-
-	if resp.Diagnostics.HasError() {
-		return
-	}
-
-	var state *EmailModel
-
-	resp.Diagnostics.Append(req.State.Get(ctx, &state)...)
-
-	if resp.Diagnostics.HasError() {
-		return
-	}
-
-	dataBytes, err := data.MarshalJSONForUpdate(*state)
-	if err != nil {
-		resp.Diagnostics.AddError("failed to serialize http request", err.Error())
-		return
-	}
-	res := new(http.Response)
-	_, err = r.client.Email.New(
-		ctx,
-		terminal.EmailNewParams{},
-		option.WithRequestBody("application/json", dataBytes),
-		option.WithResponseBodyInto(&res),
-		option.WithMiddleware(logging.Middleware(ctx)),
-	)
-	if err != nil {
-		resp.Diagnostics.AddError("failed to make http request", err.Error())
-		return
-	}
-	bytes, _ := io.ReadAll(res.Body)
-	err = apijson.UnmarshalComputed(bytes, &data)
-	if err != nil {
-		resp.Diagnostics.AddError("failed to deserialize http request", err.Error())
-		return
-	}
-
-	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
+	// Update is not supported for this resource
 }
 
 func (r *EmailResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {

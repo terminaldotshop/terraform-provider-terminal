@@ -4,7 +4,7 @@ package app
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/stainless-sdks/terminal-terraform/internal/customfield"
+	"github.com/terminaldotshop/terraform-provider-terminal/internal/customfield"
 )
 
 type AppDataSourceModel struct {
@@ -16,4 +16,5 @@ type AppDataDataSourceModel struct {
 	ID          types.String `tfsdk:"id" json:"id,computed"`
 	Name        types.String `tfsdk:"name" json:"name,computed"`
 	RedirectUri types.String `tfsdk:"redirect_uri" json:"redirectURI,computed"`
+	Secret      types.String `tfsdk:"secret" json:"secret,computed"`
 }

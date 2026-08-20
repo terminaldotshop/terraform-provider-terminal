@@ -4,7 +4,7 @@ package cart
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/stainless-sdks/terminal-terraform/internal/customfield"
+	"github.com/terminaldotshop/terraform-provider-terminal/internal/customfield"
 )
 
 type CartDataSourceModel struct {
@@ -23,6 +23,7 @@ type CartDataDataSourceModel struct {
 type CartDataAmountDataSourceModel struct {
 	Subtotal types.Int64 `tfsdk:"subtotal" json:"subtotal,computed"`
 	Shipping types.Int64 `tfsdk:"shipping" json:"shipping,computed"`
+	Total    types.Int64 `tfsdk:"total" json:"total,computed"`
 }
 
 type CartDataItemsDataSourceModel struct {

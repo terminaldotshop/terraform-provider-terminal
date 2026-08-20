@@ -4,13 +4,13 @@ package profile
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/stainless-sdks/terminal-terraform/internal/apijson"
-	"github.com/stainless-sdks/terminal-terraform/internal/customfield"
+	"github.com/terminaldotshop/terraform-provider-terminal/internal/apijson"
+	"github.com/terminaldotshop/terraform-provider-terminal/internal/customfield"
 )
 
 type ProfileModel struct {
-	Email types.String                               `tfsdk:"email" json:"email,optional"`
-	Name  types.String                               `tfsdk:"name" json:"name,optional"`
+	Email types.String                               `tfsdk:"email" json:"email,required"`
+	Name  types.String                               `tfsdk:"name" json:"name,required"`
 	Data  customfield.NestedObject[ProfileDataModel] `tfsdk:"data" json:"data,computed"`
 }
 

@@ -6,8 +6,8 @@ import (
 	"context"
 	"testing"
 
-	"github.com/stainless-sdks/terminal-terraform/internal/services/profile"
-	"github.com/stainless-sdks/terminal-terraform/internal/test_helpers"
+	"github.com/terminaldotshop/terraform-provider-terminal/internal/services/profile"
+	"github.com/terminaldotshop/terraform-provider-terminal/internal/test_helpers"
 )
 
 func TestProfileModelSchemaParity(t *testing.T) {

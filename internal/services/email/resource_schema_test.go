@@ -6,8 +6,8 @@ import (
 	"context"
 	"testing"
 
-	"github.com/stainless-sdks/terminal-terraform/internal/services/email"
-	"github.com/stainless-sdks/terminal-terraform/internal/test_helpers"
+	"github.com/terminaldotshop/terraform-provider-terminal/internal/services/email"
+	"github.com/terminaldotshop/terraform-provider-terminal/internal/test_helpers"
 )
 
 func TestEmailModelSchemaParity(t *testing.T) {
